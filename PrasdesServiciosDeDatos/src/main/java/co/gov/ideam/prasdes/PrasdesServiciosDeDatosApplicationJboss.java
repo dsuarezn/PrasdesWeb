@@ -16,9 +16,9 @@ public class PrasdesServiciosDeDatosApplicationJboss extends SpringBootServletIn
 {
 
 // Descomentar codigo comentado para poder habilitar la instancia para jboss			
-//	public static void main(String[] args) {
-//		SpringApplication.run(PrasdesServiciosDeDatosApplicationJboss.class, args);
-//	}
+	public static void main(String[] args) {
+		SpringApplication.run(PrasdesServiciosDeDatosApplicationJboss.class, args);
+	}
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

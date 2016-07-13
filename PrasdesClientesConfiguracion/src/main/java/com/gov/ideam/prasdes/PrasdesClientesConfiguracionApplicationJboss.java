@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
 
-//@SpringBootApplication
+@SpringBootApplication
 public class PrasdesClientesConfiguracionApplicationJboss extends SpringBootServletInitializer 
 {
 
-//	public static void main(String[] args) {
-//		SpringApplication.run(PrasdesClientesConfiguracionApplicationJboss.class, args);
-//	}
+	public static void main(String[] args) {
+		SpringApplication.run(PrasdesClientesConfiguracionApplicationJboss.class, args);
+	}
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

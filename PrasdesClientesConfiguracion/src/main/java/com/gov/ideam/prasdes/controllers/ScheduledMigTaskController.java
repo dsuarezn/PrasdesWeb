@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.jaxrs.json.annotation.JSONP;
+
 import com.gov.ideam.prasdes.config.AppConfigInfo;
 import com.gov.ideam.prasdes.rest.RestAdapter;
 import com.gov.ideam.prasdes.schedulers.QuartzTaskScheduler;

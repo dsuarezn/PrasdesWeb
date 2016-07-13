@@ -26,7 +26,7 @@ import co.gov.ideam.prasdes.web.dto.ConnectionDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.prasdes.web.dto.MigracionFormWebDTO;
-import scala.annotation.meta.setter;
+
 
 @Controller
 @CrossOrigin
