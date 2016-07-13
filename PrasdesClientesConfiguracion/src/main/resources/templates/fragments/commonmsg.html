@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+<body>
+	 <!-- Save Alert Messages -->
+			           <div th:if="${saveEmployee eq 'unsuccess'}">
+			              <div class="alert alert-danger alert-dismissible" role="alert">
+							  <strong>Error!</strong> Employee Data Not Saved.
+							</div>
+			           </div>
+			           <div th:if="${saveEmployee eq 'success'}">
+			              <div class="alert alert-success alert-dismissible" role="alert">
+							  <strong>Success!</strong> Employee Data Saved Successfully.
+							</div>
+			           </div>
+		           
+		           <!-- Deletion Alert Messages -->
+			            <div th:if="${deletion eq 'unsuccess'}">
+			              <div class="alert alert-danger alert-dismissible" role="alert">
+							  <strong>Error!</strong> Employee Data Not Deleted.
+							</div>
+			           </div>
+			           <div th:if="${deletion eq 'success'}">
+			              <div class="alert alert-success alert-dismissible" role="alert">
+							  <strong>Success!</strong> Employee Data Deleted Successfully.
+							</div>
+			           </div>
+			       
+			       <!-- Edit Alert Message -->
+			        <div th:if="${status eq 'notfound'}">
+			              <div class="alert alert-danger alert-dismissible" role="alert">
+							  <strong>Error!</strong> Invalid Employee.
+							</div>
+			           </div>
+			           <div th:if="${edit eq 'unsuccess'}">
+			              <div class="alert alert-danger alert-dismissible" role="alert">
+							  <strong>Error!</strong> Employee Data Not Edited.
+							</div>
+			           </div>
+			           <div th:if="${edit eq 'success'}">
+			              <div class="alert alert-success alert-dismissible" role="alert">
+							  <strong>Success!</strong> Employee Data Edited Successfully.
+							</div>
+			           </div>
+</body>
+</html>

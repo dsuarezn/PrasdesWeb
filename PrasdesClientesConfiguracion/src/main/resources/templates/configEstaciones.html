@@ -1,0 +1,88 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+<head>
+  <title th:text="#{configEst.view.tittle}"></title>
+</head>
+<body>
+	<div layout:fragment="content" ng-controller='manualCtrl'>
+		  
+		   <div class="row"  style="margin-bottom:10px;">
+		     
+		      <div class="col-md-7">
+		            <div class="panel panel-info">
+					  <div class="panel-heading">
+					    <h3 class="panel-title" th:text="#{configEst.view.tittle}"></h3>
+					  </div>
+					     <div class="panel-body table-responsive" style="max-height: 500px !important;">					     
+					              <table class="table table-bordered">
+									<thead>
+									   <tr class="btn-info">									     									     
+									     <th th:text="#{configEst.table.customerName}"></th>
+									     <th th:text="#{configEst.table.customerId}"></th>
+									     <th th:text="#{configEst.table.station}"></th>
+									     <th th:text="#{configEst.table.variable}"></th>									     
+									     <th th:text="#{auto.tabla.tarea.eliminar}"></th>									     
+									   </tr>
+									</thead>
+									<tbody>
+									     <tr th:if="${#lists.isEmpty(listaCustomers)}" class="btn-warning">
+									        <td colspan="6" align="center" th:text="#{configEst.tabla.tarea.noregistros}"></td> 
+									     </tr>
+										   <tr th:each="customer : ${listaCustomers}">
+										     <td th:text="${customer.nombreCustomer}"></td>
+										     <td th:text="${customer.vIdcustomer}"></td>
+										     <td th:text="${customer.nombreEstacion}"></td>
+										     <td th:text="${customer.nombreVariable}"></td>										     										    
+										     <td align="center">
+										        <a th:href="@{/estConfig/{item}(item=${customer})}"><span class="glyphicon glyphicon-trash"></span></a>
+										     </td>
+										   </tr>
+									    
+									</tbody>
+								</table>
+					      </div>
+					          
+					</div>
+		       </div>
+		   
+		      <div class="col-md-5">
+		      	<div class="panel panel-info">
+				  <div class="panel-heading">
+				    <h3 class="panel-title" th:text="#{configEst.form.tittle}"></h3>
+				  </div>
+		      		<div class="panel-body">	
+		      	
+		      	
+		      		<div id="consultaPanel" style="">    				      
+				      <div class="form-group">
+				        <label for="selCustomer" th:text="#{configEst.form.customer}"></label>
+				         <select class="form-control" id="selCustomer">
+			                <option th:each="customer : ${listaCustomersWeb}" th:text="${customer.vNameCustomer}" th:value="${customer.vIdcustomer}" >[option]</option>
+			             </select>
+				      </div>      
+				      <div class="form-group">
+				        <label for="selStation" th:text="#{configEst.form.station}"></label>
+				        <select class="form-control" id="selStation">
+			                <option th:each="station : ${listaEstaciones}" th:text="${station.vNameStation}" th:value="${station.nIdstation}" >[option]</option>
+			             </select>  				            
+				      </div>
+				      <div class="form-group">
+				        <label for="selVar" th:text="#{configEst.form.variable}"></label>
+				        <select class="form-control" id="selVar">
+			                <option th:each="var : ${listaVariables}" th:text="${var.vNameVar}" th:value="${var.nIdvar}" >[option]</option>
+			             </select>      
+				      </div>				      
+				      <div id="errorMsg" th:if="*{mensajeError != null}" class="alert alert-danger" th:text="${mensajeError}">						  
+					  </div>    
+				      <button id="btnMigra" type="button" class="btn btn-primary btn-md" th:text="#{configEst.form.relacion.submit}"></button>       	
+				    </div>
+		      
+		      
+		      	</div>
+		      </div>
+		     </div>
+		   </div>
+		   
+		</div>
+</body>
+</html>

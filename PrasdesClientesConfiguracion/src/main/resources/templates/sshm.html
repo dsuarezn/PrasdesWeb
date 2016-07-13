@@ -1,0 +1,81 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+<head>
+  <title th:text="#{sshm.view.tittle}"></title>
+</head>
+<body>
+	<div layout:fragment="content" ng-controller='sshmCtrl'>
+		  <div class="row" >		  
+		   <div class="col-sm-5"  style="margin-bottom:50px;">
+		      <div class="col-md-12">
+		      	<div class="panel panel-info">
+				  <div class="panel-heading">
+				    <h3 class="panel-title" th:text="#{sshm.form.conexion.tittle}"></h3>
+				  </div>
+		      		<div class="panel-body table-responsive" style="max-height: 550px !important;">	
+		      	
+		      		<form method="post">
+<!-- 		      			<input type="hidden" id="token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+				      		<div id="consultaPanel" style="">    
+						      
+						      
+							 <div class="form-group">
+						        <label for="selPeriodo" th:text="#{auto.form.programado.periodicidad}"></label>
+						        <select class="form-control" id="selPeriodo">
+					                <option th:each="periodo : ${listaPeriodos}" th:text="${periodo.vNamePeriod}" th:value="${periodo.nIdperiod}" >[option]</option>
+					            </select>					            
+								<input id="idPeriod" name="idPeriod" type="hidden" ng-model="selData.idPeriod">
+						     </div>
+     
+						      
+						      <div class="form-group">
+						        <label for="codEstacion" th:text="#{sshm.form.conexion.codEstacion}"></label>
+						        <input id="idEstacion" name="idEstacion" class="form-control" ng-model="selData.idEstacion"/>
+						      </div>
+						      <div class="form-group">
+						        <label for="variable" th:text="#{sshm.form.conexion.variable}"></label>
+						        <input id="idVariable" name="idVariable" class="form-control" ng-model="selData.idVariable"/>
+						      </div>
+						      <div class="form-group">
+						        <label for="sfechaInicio" th:text="#{sshm.form.conexion.fechaini}"></label>
+						        <p class="input-group">
+						          	<div class='input-group date datepicker'>
+					                    <input id="sfechaInicio" name="sfechaInicio" class="form-control"  />
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+				                	</div>
+						        </p>
+						      </div>
+						      <div class="form-group">
+						        <label for="sfechaFin" th:text="#{sshm.form.conexion.fechafin}"></label>  
+						        <p class="input-group">
+						          <div class='input-group date datepicker'>
+					                    <input id="sfechaFin" name="sfechaFin" class="form-control" />
+					                    <span class="input-group-addon">
+					                        <span class="glyphicon glyphicon-calendar"></span>
+					                    </span>
+				                	</div>
+						        </p>
+						      </div>
+						      <div id="noSelectedAlert"  ng-show="showmsg" class="alert alert-danger" >
+						      		{{warning_msg}}						  
+							  </div>	 
+							  <div id="errorMsg" th:if="*{mensajeError != null}" class="alert alert-danger" th:text="${mensajeError}">						  
+							  </div>   
+						      <button ng-show="!inprogress" id="btnMigra" type="button" class="btn btn-primary btn-md" th:text="#{sshm.form.conexion.submit}"  ng-click="verificarSel()"></button>       								  
+							  <div class="progress" ng-show="inprogress">
+							    <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%" th:text="#{sshm.progress.msg}">     
+							    </div>
+							  </div>
+						    </div>
+		      
+		      		</form>
+		      	</div>
+		      </div>
+		     </div>
+		   </div>
+		   </div>
+		</div>
+</body>
+</html>

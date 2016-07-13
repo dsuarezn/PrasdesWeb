@@ -1,0 +1,60 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+	
+<script th:src="@{/webjars/jquery/2.1.4/jquery.min.js}" ></script>
+<script th:src="@{/webjars/angularjs/1.5.4/angular.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.4/js/transition.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.4/js/collapse.js}"></script>
+<script th:src="@{/webjars/bootstrap/3.3.4/js/bootstrap.min.js}"></script>
+<script th:src="@{scripts/app.js}"></script>
+<script th:src="@{scripts/controllers/manual.js}"></script>
+<script th:src="@{scripts/controllers/automatic.js}"></script>
+<script th:src="@{scripts/controllers/sshm.js}"></script>
+<script th:src="@{dependencies/cronGen/cronGen.min.js}"></script>
+<script th:src="@{dependencies/momentjs/moment.min.js}"></script>
+
+<script th:src="@{dependencies/bootstrap-datepicker/bootstrap-datetimepicker.min.js}"></script>
+<script th:src="@{dependencies/bootstrap-dialog/bootstrap-dialog.min.js}"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#cron").cronGen();                
+    });
+</script>
+
+<script type="text/javascript">
+     $(function () {
+         $('.datepicker').datetimepicker({
+             format: 'DD/MM/YYYY HH:MM'
+         });
+     });
+</script>
+
+<script type="text/javascript">
+ $(document).mouseup(function (e) {
+     var popup = $("div.popover");
+     if (!$("div.popover").is(e.target) && !popup.is(e.target) && popup.has(e.target).length == 0) {
+         popup.fadeOut(200);
+     }
+ });
+ </script> 
+
+ <script>
+ $(function () {
+	 $('.ownpop').popover();
+ });
+</script>
+
+ <script>
+ $(function () {
+	 var pathname = window.location.pathname;
+	 if(pathname.indexOf("manual")> -1){
+		 $('#li_menu_manual').addClass('active');
+	 }else if(pathname.indexOf("programador")> -1){
+		 $('#li_menu_auto').addClass('active');
+	 }else if(pathname.indexOf("sshm")> -1){
+		 $('#li_menu_sshm').addClass('active');
+	 }else if(pathname.indexOf("configEst")> -1){
+		 $('#li_menu_config').addClass('active');
+	 }
+ });
+</script>

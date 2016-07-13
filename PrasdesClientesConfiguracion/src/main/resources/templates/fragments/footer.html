@@ -1,0 +1,12 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html>
+  <head>
+  </head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-bottom">
+	  <div class="container">
+	    <p class="navbar-text"><put-date th:text=${#dates.year(#dates.createNow())}></put-date> Ideam</p> 
+	  </div>
+	</nav>
+</body>
+</html>

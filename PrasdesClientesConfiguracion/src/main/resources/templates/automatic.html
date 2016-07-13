@@ -1,0 +1,180 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+<head>
+  <title th:text="#{auto.view.tittle}"></title>
+</head>
+<body>
+	<div layout:fragment="content" ng-controller='automaticCtrl' >
+		  
+		   <div class="row"  style="margin-bottom:10px;">
+		   
+		      <div class="col-md-7">
+		      <div class="col-md-12">
+		      	<div class="panel panel-info">
+					  <div class="panel-heading">
+					    <h3 class="panel-title" th:text="#{manual.tabla.conexion.tittle}"></h3>
+					  </div>
+					     <div class="panel-body table-responsive" style="max-height: 250px !important;">					     
+					              <table class="table table-bordered table-hover">
+									<thead>
+									   <tr class="btn-info">									     
+									     <th th:text="#{manual.tabla.conexion.pais}"></th>
+									     <th th:text="#{manual.tabla.conexion.periodicidad}"></th>
+									     <th th:text="#{manual.tabla.conexion.url}"></th>
+									     <th th:text="#{manual.tabla.conexion.cliente}"></th>									     
+									   </tr>
+									</thead>
+									<tbody>
+									     <tr th:if="${#lists.isEmpty(listaConexiones)}" class="btn-warning">
+									        <td colspan="5" align="center" th:text="#{manual.tabla.mensajes.noregistros}"></td> 
+									     </tr>
+										   <tr th:each="conn : ${listaConexiones}" 
+										   	th:attr="ng-click='setSelected(\''+${conn.vNameCountry}+'\',\''+${conn.nIdcountry}+'\','+${conn.nIdperiod}+',\''+${conn.vNamePeriod}+'\',\''+${conn.vUrl}+'\',\''+${conn.vIdcustomer}+'\',\''+${conn.vNameCustomer}+'\')'">
+										     <td th:text="${conn.vNameCountry}"></td>
+										     <td th:text="${conn.vNamePeriod}"></td>
+										     <td th:text="${conn.vUrl}"></td>
+										     <td th:text="${conn.vNameCustomer}"></td>										     
+<!-- 										     <td align="center"> -->
+<!-- 										        <a th:href="@{/employee/edit/{id}(id=${emp.id})}"><span class="glyphicon glyphicon glyphicon-ok"></span></a> &nbsp; &nbsp; -->
+<!-- 										        <a th:href="@{/employee/delete/{id}(id=${emp.id})}"><span class="glyphicon glyphicon-trash"></span></a> -->
+<!-- 										     </td> -->
+										   </tr>									    	
+									</tbody>
+								</table>
+					      </div>
+					          
+					</div>
+		      </div>
+		      <div class="col-md-12">		      
+		            <div class="panel panel-info">
+					  <div class="panel-heading">
+					    <h3 class="panel-title" th:text="#{auto.tabla.tarea.tittle}"></h3>
+					  </div>
+					     <div class="panel-body table-responsive" style="max-height: 250px !important;" ng-init="loadRuta()">						     				    
+					              <table class="table table-bordered" >
+									<thead>
+									   <tr class="btn-info">									     
+									     <th th:text="#{auto.tabla.tarea.pais}"></th>
+									     <th th:text="#{auto.tabla.tarea.periodicidad}"></th>
+									     <th th:text="#{auto.tabla.tarea.cliente}"></th>
+									     <th th:text="#{auto.tabla.tarea.url}"></th>
+									     <th th:text="#{auto.tabla.tarea.expresion}"></th>
+									     <th th:text="#{auto.tabla.tarea.eliminar}"></th>									     
+									   </tr>
+									</thead>
+									<tbody>
+									     <tr ng-if="listaTareas.length == 0" class="btn-warning">
+									        <td colspan="6" align="center" th:text="#{auto.tabla.tarea.noregistros}"></td> 
+									     </tr>
+										   <tr ng-repeat="tarea in listaTareas track by $index">
+										     <td>{{tarea.vNameCountry}}</td>
+										     <td>{{tarea.vNamePeriod}}</td>
+										     <td>{{tarea.vIdcustomer}}</td>
+										     <td>{{tarea.vUrl}}</td>
+										     <td>{{tarea.vExpresion}}</td>										     
+										     <td align="center">
+										        <a ng-click="borrarTarea(tarea.nTaskId)"><span class="glyphicon glyphicon-trash"></span></a>
+										     </td>
+										   </tr>									    
+									</tbody>
+								</table>
+					      </div>
+					          
+					</div>
+					</div>
+		       </div>
+		   
+		      <div  class="col-md-5">
+		      <form th:action="@{/programador}" th:object="${jobdto}" method="post">
+		      	<div class="panel panel-info">
+				  <div class="panel-heading">
+				    <h3 class="panel-title" th:text="#{auto.form.programado.tittle}"></h3>
+				  </div>
+		      		<div class="panel-body">	
+		      	
+		      	
+		      		<div id="consultaPanel" style="">
+		      		 <div class="form-group">
+					      <label th:text="#{auto.form.programado.expresion}"></label>					      
+					      <div class="form-inline">				        				        
+						        <input id="cron" class="form-control" />
+					      </div>  				        
+				      </div>				      				    
+				      <div class="form-group">
+				        <label for="selPais" th:text="#{auto.form.programado.pais}"></label>
+<!-- 				        <select class="form-control" id="selPais"> -->
+<!-- 			                <option th:each="pais : ${listaPaises}" th:text="${pais.vNameCountry}" th:value="${pais.nIdcountry}" >[option]</option> -->
+<!-- 			            </select> -->
+			            {{selData.nameCountry}}
+						<input type="hidden"  ng-model="selData.idCountry">
+				      </div>
+				      <div class="form-group">
+				        <label for="selPeriodo" th:text="#{auto.form.programado.periodicidad}"></label>
+<!-- 				        <select class="form-control" id="selPeriodo"> -->
+<!-- 			                <option th:each="periodo : ${listaPeriodos}" th:text="${periodo.vNamePeriod}" th:value="${periodo.nIdperiod}" >[option]</option> -->
+<!-- 			            </select> -->
+			            {{selData.namePeriod}}
+						<input id="idPeriod" name="idPeriod" type="hidden" ng-model="selData.idPeriod">
+				      </div>      
+				      <div class="form-group">
+				        <label for="codCliente" th:text="#{auto.form.programado.codCliente}"></label>
+<!-- 				        <input id="codCliente" type="text" class="form-control"/> -->
+							{{selData.nameCustomer}}
+							{{selData.idCustomer}}
+						    <input type="hidden" id="idCustomer" name="idCustomer"  ng-model="selData.idCustomer" >
+				      </div>
+				      <div class="form-group">
+				        <label for="codEstacion" th:text="#{manual.form.conexion.codEstacion}"></label>
+				        <input id="idEstacion" name="idEstacion" class="form-control" ng-model="selData.idEstacion" />
+				      </div>
+				      <div class="form-group">
+				        <label for="variable" th:text="#{manual.form.conexion.variable}"></label>
+				        <input id="idVariable" name="idVariable" class="form-control" ng-model="selData.idVariable" />
+				      </div>
+				      <div class="form-group">
+				        <label for="url" th:text="#{auto.form.programado.url}"></label>
+<!-- 				        <input id="url" type="text" class="form-control ownpop" data-toggle="popover" title="Uso" data-content="Si ingresa información relacionada a la tarea (estacion, variable, código cliente) recuerde que la URI debe contener los parametros para realizar el remplazo en consulta"/>       -->							
+							<label style="font-weight: lighter; color: cornflowerblue;">{{selData.serviceUrl}}</label>
+						    <input id="serviceUrl" name="serviceUrl" type="hidden"  ng-model="selData.serviceUrl" >
+				      </div>
+				      
+				      <div class="form-group" style="height: 90px;">
+				      					      		
+		                    <div class="form-group thumbnail col-sm-4" style="text-align: center;">
+		                        <input type="radio" id="opmonth" class="form-control radio_programador" name="timeop" ng-model="selData.selOpMonth" value="30">			                                                
+		                        <h5 th:text="#{auto.form.opmonth.text}" ></h5>
+		                    </div>			                
+				      					      	
+				      		<div class="form-group thumbnail col-sm-4" style="text-align: center;">
+		                        <input type="radio" id="opyear" class="form-control radio_programador" name="timeop" ng-model="selData.selOpYear" value="365">			                                               
+		                        <h5 th:text="#{auto.form.opyear.text}"></h5>
+		                    </div>			                
+				      	
+				      		<div class="form-group thumbnail col-sm-4" style="text-align: center;">
+		                        <input type="radio" id="opdaysnumber" class="form-control radio_programador" name="timeop" ng-model="selData.selOpDays"  ng-value="selData.noDays">		                        		                       
+		                        <h5 th:text="#{auto.form.opdaysnumber.text}"></h5>
+		                        <input class="form-control" type="number" min="1" value="100" ng-model="selData.noDays" ng-init="selData.noDays=100" >
+		                    </div>			                
+				      	
+				      </div>
+				      <br/>
+				    
+				      <div class="form-group" >
+					      <div id="noSelectedAlert"  ng-show="showNoSel" class="alert alert-danger" >
+							      {{warning_msg}}						  
+						  </div>				   				   
+					      <div id="errorMsg" class="alert alert-danger" th:text="${mensajeError}" th:if="${mensajeError!=''}">						  
+						  </div>    
+					      <button id="btnMigra" type="button" class="btn btn-primary btn-md" th:text="#{auto.form.programado.submit}" ng-click="agregarTarea()"></button>
+				      </div>       	
+				    </div>
+		      
+		      	</div>
+		      </div>
+		      </form>
+		     </div>
+		   </div>
+		   
+		</div>
+</body>
+</html>
