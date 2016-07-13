@@ -1,23 +1,16 @@
 package co.gov.ideam.prasdes.utilidades;
 
-import static org.junit.Assert.*;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-import org.junit.Test;
-import org.springframework.test.AssertThrows;
 import org.springframework.util.StringUtils;
 
-import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;
-import co.gov.ideam.prasdes.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.prasdes.web.dto.MigracionFormWebDTO;
 
 

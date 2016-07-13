@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<version.dozer>5.4.0</version.dozer>
+		<maven.compiler.source>1.7</maven.compiler.source>
+   		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -32,12 +34,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-<!-- 			 <exclusions> -->
-<!-- 		        <exclusion> -->
-<!-- 		          <groupId>org.springframework.boot</groupId> -->
-<!-- 		          <artifactId>spring-boot-starter-tomcat</artifactId> -->
-<!-- 		        </exclusion> -->
-<!-- 		     </exclusions> -->
+			 <exclusions>
+		        <exclusion>
+		          <groupId>org.springframework.boot</groupId>
+		          <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		     </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -74,17 +76,15 @@
             <groupId>co.gov.ideam.sshm</groupId>
             <artifactId>SSHMModelLib</artifactId>
             <version>1.0</version>            
-        </dependency>
-	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+        </dependency>	
+			<!-- We need to include the javax.servlet API specs, the implementation will be provided by Wildfly / JBoss-->
+	    <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <scope>provided</scope>
+	    </dependency>
+		
+	</dependencies>	
 	
 
 </project>

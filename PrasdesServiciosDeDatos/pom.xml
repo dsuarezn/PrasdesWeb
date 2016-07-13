@@ -6,9 +6,9 @@
 	<groupId>co.gov.ideam.prasdes</groupId>
 	<artifactId>PrasdesServiciosDeDatos</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>PrasdesServiciosDeDatos2</name>
+	<name>PrasdesServiciosDeDatos</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<version.dozer>5.4.0</version.dozer>
+		<maven.compiler.source>1.7</maven.compiler.source>
+   		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -32,12 +34,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			 <exclusions>
-		        <exclusion>
-		          <groupId>org.springframework.boot</groupId>
-		          <artifactId>spring-boot-starter-tomcat</artifactId>
-		        </exclusion>
-		     </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -79,6 +75,8 @@
 	    </dependency>
 		
 	</dependencies>	
+	
+	
 	
 
 </project>
