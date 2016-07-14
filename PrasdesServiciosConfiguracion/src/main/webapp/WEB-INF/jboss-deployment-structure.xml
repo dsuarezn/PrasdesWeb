@@ -21,7 +21,7 @@
 		    <subsystem name="jpa" />
 		</exclude-subsystems>
 		<exclusions>
-		    <module name="javaee.api" />
+		    <module name="javaee.api" />		    
 		</exclusions>
         <dependencies>            
 <!--             <module name="org.codehaus.jackson.jackson-core-asl"/> -->
