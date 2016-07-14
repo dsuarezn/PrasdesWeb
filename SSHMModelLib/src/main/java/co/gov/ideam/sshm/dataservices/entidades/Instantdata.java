@@ -36,7 +36,7 @@ public class Instantdata implements Serializable {
 	private Long idSec;
 
 	@Column(name="INDT_DATA")
-	private BigDecimal data;	
+	private String data;	
 
 	@Temporal(TemporalType.DATE)
 	@Column(name="INDT_DATE")
@@ -70,11 +70,11 @@ public class Instantdata implements Serializable {
 		this.idSec = idSec;
 	}
 
-	public BigDecimal getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(BigDecimal data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

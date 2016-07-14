@@ -43,7 +43,7 @@ public class Monthlydata implements Serializable {
 	private long idSec;
 
 	@Column(name="MNDT_DATA")
-	private BigDecimal data;
+	private String data;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="MNDT_DATE")
@@ -75,11 +75,11 @@ public class Monthlydata implements Serializable {
 
 
 
-	public BigDecimal getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(BigDecimal data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

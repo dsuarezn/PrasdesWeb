@@ -1,5 +1,6 @@
 package com.gov.ideam.prasdes.rest;
 
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -274,7 +275,7 @@ public class RestAdapterImpl implements RestAdapter {
 		dto.setnIdvar(equivIdVarIdeamPrasdes.get(item.getIdVariable()));
 		dto.setnIdsource(equivIdSourceIdeamPrasdes.get(item.getIdSource()));
 		dto.setdDatadate(item.getDateDatadate());
-		dto.setnData(item.getData());
+		dto.setnData(new BigDecimal(item.getData()));
 		dto.setnIdflag(item.getIdFlag());
 		dto.setnIdqc(equivIdQualityIdeamPrasdes.get(item.getIdqc()));
 		dto.setnIduser(appConfigInfo.prasdesDefaultUser);
@@ -287,7 +288,7 @@ public class RestAdapterImpl implements RestAdapter {
 		dto.setnIdvar(equivIdVarIdeamPrasdes.get(item.getIdVariable()));
 		dto.setnIdsource(equivIdSourceIdeamPrasdes.get(item.getIdSource()));
 		dto.setdDatadate(item.getDateDatadate());
-		dto.setnData(item.getData());
+		dto.setnData(new BigDecimal(item.getData()));
 		dto.setnIdflag(item.getIdFlag());
 		dto.setnIdqc(equivIdQualityIdeamPrasdes.get(item.getIdqc()));
 		dto.setnIduser(appConfigInfo.prasdesDefaultUser);

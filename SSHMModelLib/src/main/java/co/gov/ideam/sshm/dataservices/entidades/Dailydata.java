@@ -27,6 +27,18 @@ import java.util.Date;
 				+ "(dd.id.datadate between :pfechaIni and :pfechafin and :pfechaIni is not null and :pfechafin is not null) "
 				+ "OR (:pfechaIni is null and dd.id.datadate <= :pfechafin and :pfechafin is not null) "
 				+ "OR (:pfechafin is null and dd.id.datadate >= :pfechaIni and :pfechaIni is not null) "
+				+ "OR (:pfechafin is null and :pfechaIni is null))"),
+		@NamedQuery(name="Dailydata.findByParametersPrasdes",  
+		query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseDTO(dd.id.idstation,dd.id.idvariable,dd.id.datadate,dd.id.idsource,dd.data,dd.idflag,dd.idqc,dd.user,dd.date,dd.idSec) "
+				+ "FROM Dailydata dd, PrasdesEquiv pe "
+				+ "WHERE (dd.id.idvariable = :pIdVariable or :pIdVariable is null) "
+				+ "AND dd.id.idstation = cast(pe.id.ideamVal as long) "
+				+ "AND pe.id.tipoVal = 'station' "
+				+ "AND (dd.id.idstation = :pIdStation or :pIdStation is null) "
+				+ "AND ("
+				+ "(dd.id.datadate between :pfechaIni and :pfechafin and :pfechaIni is not null and :pfechafin is not null) "
+				+ "OR (:pfechaIni is null and dd.id.datadate <= :pfechafin and :pfechafin is not null) "
+				+ "OR (:pfechafin is null and dd.id.datadate >= :pfechaIni and :pfechaIni is not null) "
 				+ "OR (:pfechafin is null and :pfechaIni is null))")
 })
 public class Dailydata implements Serializable {
@@ -40,7 +52,7 @@ public class Dailydata implements Serializable {
 	private DailydataPK id;
 
 	@Column(name="DLDT_DATA")
-	private BigDecimal data;
+	private String data;
 
 
 	@Temporal(TemporalType.DATE)
@@ -75,11 +87,11 @@ public class Dailydata implements Serializable {
 		this.id = id;
 	}
 
-	public BigDecimal getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(BigDecimal data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
