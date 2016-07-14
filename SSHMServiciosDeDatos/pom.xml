@@ -3,13 +3,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>co.gov.ideam.prasdes</groupId>
-	<artifactId>PrasdesServiciosDeDatos</artifactId>
+	<groupId>co.gov.ideam.sshm</groupId>
+	<artifactId>SSHMServiciosDeDatos</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>PrasdesServiciosDeDatos2</name>
-	<description>Demo project for Spring Boot</description>
+	<name>SSHMServiciosDeDatos</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -34,17 +33,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			 <exclusions>
+			<exclusions>
 		        <exclusion>
 		          <groupId>org.springframework.boot</groupId>
 		          <artifactId>spring-boot-starter-tomcat</artifactId>
 		        </exclusion>
-		     </exclusions>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<scope>runtime</scope>
+		     </exclusions>			
 		</dependency>
 		 <dependency>
             <groupId>com.oracle</groupId>
@@ -87,4 +81,5 @@
 	</dependencies>	
 	
 
+	<description>Servicios de datos del esquema sshm (diarios, mensuales, instantaneos)</description>
 </project>

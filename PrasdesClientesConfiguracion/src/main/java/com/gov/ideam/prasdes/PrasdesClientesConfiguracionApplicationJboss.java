@@ -6,9 +6,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-
+@Configuration
 @SpringBootApplication
 public class PrasdesClientesConfiguracionApplicationJboss extends SpringBootServletInitializer 
 {
@@ -19,7 +20,7 @@ public class PrasdesClientesConfiguracionApplicationJboss extends SpringBootServ
 	
 	@Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(PrasdesClientesConfiguracionApplication.class);
+        return application.sources(PrasdesClientesConfiguracionApplicationJboss.class);
     }
 	
 

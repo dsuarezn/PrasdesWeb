@@ -42,7 +42,7 @@ public class ClienteMigracionController  {
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getMigracionView(Model model){
-//		System.out.println("entro en controller");
+		System.out.println("entro en controller");
 //		
 		return "manual";
 	}
