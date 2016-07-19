@@ -21,6 +21,8 @@
 		    <subsystem name="jpa" />
 		</exclude-subsystems>
 		<exclusions>
+			<module name="org.apache.log4j" />
+            <module name="org.slf4j" />		
 		    <module name="javaee.api" />
 		</exclusions>
         <dependencies>            

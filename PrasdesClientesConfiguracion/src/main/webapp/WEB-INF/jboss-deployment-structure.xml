@@ -22,8 +22,7 @@
 		</exclude-subsystems>
 		<exclusions>
 			<module name="org.apache.log4j" />
-            <module name="org.slf4j" />
-		    <module name="javaee.api" />		    
+            <module name="org.slf4j" />		    		   
 		</exclusions>
         <dependencies>            
 <!--             <module name="org.codehaus.jackson.jackson-core-asl"/> -->
