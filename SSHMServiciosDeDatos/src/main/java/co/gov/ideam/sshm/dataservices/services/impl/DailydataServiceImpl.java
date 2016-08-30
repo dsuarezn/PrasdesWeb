@@ -28,7 +28,8 @@ public class DailydataServiceImpl extends ServiceCommons implements DailydataSer
 
 	@Override
 	public List<ConsultaResponseDTO> consultarDatosDiariosPorParametrosPrasdes(ConsultaRestFormDTO parametros) {
-		return daoFactory.getDailydataDAOImpl().consultarInformacionDiariaPrasdes(parametros);
+		List<ConsultaResponseDTO> lista=daoFactory.getDailydataDAOImpl().consultarInformacionDiariaPrasdes(parametros);
+		return lista;
 	}
 
 }

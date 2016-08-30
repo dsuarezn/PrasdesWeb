@@ -1,5 +1,6 @@
 package co.gov.ideam.prasdes.dataservices.dao.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -37,7 +38,8 @@ public class InstantdataDAOImpl extends GenericDAOJPAImpl<Instantdata, Instantda
 	
 	@Override
 	public void persistirInfoInstantanea(List<Instantdata> entities) {		
-		BatchUpdateWithEmSession(entities);
+		BatchUpdateWithEmSession(entities);		
+		
 	}
 
 }

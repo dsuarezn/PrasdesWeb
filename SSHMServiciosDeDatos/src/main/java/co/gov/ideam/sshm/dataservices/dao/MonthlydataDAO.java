@@ -11,4 +11,5 @@ public interface MonthlydataDAO {
 
 	public List<ConsultaResponseDTO> consultarInformacionDiaria(ConsultaRestFormDTO params);
 	public void persistirInformacionDiaria(List<Monthlydata> datosMensuales);
+	public List<ConsultaResponseDTO> consultarInformacionDiariaPrasdes(ConsultaRestFormDTO params);
 }

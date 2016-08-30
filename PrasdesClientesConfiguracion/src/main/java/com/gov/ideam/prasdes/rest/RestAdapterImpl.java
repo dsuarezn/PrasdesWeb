@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,27 +234,49 @@ public class RestAdapterImpl implements RestAdapter {
 		}
 		return equivIdSourceIdeamPrasdes;
 	}
+	
+	public Map<Long, Long> getEquivPrasdesFlag(){
+		RestTemplate restTemplate = getRestTemplate();
+		Map<Long, Long> equivIdSourceIdeamPrasdes= new HashMap<Long, Long>();
+		PrasdesEquiv[] equivSource= restTemplate.getForObject(Utilidades.getUri(appConfigInfo.equivFlagServiceUrl), PrasdesEquiv[].class);
+		for (PrasdesEquiv sourceEquiv : equivSource) {
+			equivIdSourceIdeamPrasdes.put(Long.parseLong(sourceEquiv.getId().getIdeamVal()), Long.parseLong(sourceEquiv.getId().getPrasdesVal()));
+		}
+		return equivIdSourceIdeamPrasdes;
+	}
 
 	
 		
 	public void migrarInformacionIdeamToPrasdes(String serviceUrl, Long idPeriod) {		
 		RestTemplate restTemplate = getRestTemplate();			
-		co.gov.ideam.sshm.web.dto.ConsultaResponseDTO[] listaResponse = restTemplate.getForObject(Utilidades.getUri(serviceUrl), co.gov.ideam.sshm.web.dto.ConsultaResponseDTO[].class);		
+		System.out.println("INICIA CONSULTA DE DATOS:"+Utilidades.formatearMarcaTiempo(new Date()));
+		co.gov.ideam.sshm.web.dto.ConsultaResponseDTO[] listaResponse = restTemplate.getForObject(Utilidades.getUri(serviceUrl), co.gov.ideam.sshm.web.dto.ConsultaResponseDTO[].class);
+		System.out.println("TERMINO CONSULTA DE DATOS:"+Utilidades.formatearMarcaTiempo(new Date()));
 		Map<Long, Long>  equivIdEstIdeamPrasdes = getEquivPrasdesStations();
 		Map<String, Long> equivIdVarIdeamPrasdes = getEquivPrasdesVariables();
 		Map<Long, Long> equivIdSourceIdeamPrasdes = getEquivPrasdesSources();
 		Map<Long, Long> equivIdQualityIdeamPrasdes = getEquivPrasdesQuality();
-		List listaPrasdesVals=new ArrayList<>();		
-		for (co.gov.ideam.sshm.web.dto.ConsultaResponseDTO item : listaResponse) {						
-			if(idPeriod.equals(appConfigInfo.periodIdDailyData) || idPeriod.equals(appConfigInfo.periodIdMonthlyData)){
-				ConsultaResponseDTO dto = obtenerResponsePrasdesFromIdeam(item, equivIdEstIdeamPrasdes, equivIdVarIdeamPrasdes, equivIdSourceIdeamPrasdes, equivIdQualityIdeamPrasdes);						
-				listaPrasdesVals.add(dto);
-			}
-			if(idPeriod.equals(appConfigInfo.periodIdInstantData) || idPeriod.equals(appConfigInfo.periodIdRawData)){
-				ConsultaResponseRawDataDTO dto = obtenerResponsePrasdesRawFromIdeam(item, equivIdEstIdeamPrasdes, equivIdVarIdeamPrasdes, equivIdSourceIdeamPrasdes, equivIdQualityIdeamPrasdes);						
-				listaPrasdesVals.add(dto);
-			}					
-		}		
+		Map<Long, Long> equivIdFlagIdeamPrasdes = getEquivPrasdesQuality();
+		List listaPrasdesVals=new ArrayList<>();	
+		System.out.println("INICIA CREACION OBJETOS:"+Utilidades.formatearMarcaTiempo(new Date()));
+		for (co.gov.ideam.sshm.web.dto.ConsultaResponseDTO item : listaResponse) {	
+			Long idstation=obtenerValorMapLong(equivIdEstIdeamPrasdes,item.getIdStation());
+			Long idvar=obtenerValorMapString(equivIdVarIdeamPrasdes,item.getIdVariable());
+			Long idsource=obtenerValorMapLong(equivIdSourceIdeamPrasdes,item.getIdSource());
+			Long idflag=obtenerValorMapLong(equivIdFlagIdeamPrasdes,item.getIdFlag());
+			
+			if(idstation!=null && idvar!=null && idsource!=null && idflag!=null){
+				if(idPeriod.equals(appConfigInfo.periodIdDailyData) || idPeriod.equals(appConfigInfo.periodIdMonthlyData)){
+					ConsultaResponseDTO dto = obtenerResponsePrasdesFromIdeam(item, equivIdEstIdeamPrasdes, equivIdVarIdeamPrasdes, equivIdSourceIdeamPrasdes, equivIdQualityIdeamPrasdes);						
+					listaPrasdesVals.add(dto);
+				}
+				if(idPeriod.equals(appConfigInfo.periodIdInstantData) || idPeriod.equals(appConfigInfo.periodIdRawData)){
+					ConsultaResponseRawDataDTO dto = obtenerResponsePrasdesRawFromIdeam(item, equivIdEstIdeamPrasdes, equivIdVarIdeamPrasdes, equivIdSourceIdeamPrasdes, equivIdQualityIdeamPrasdes);						
+					listaPrasdesVals.add(dto);
+				}	
+			}									
+		}
+		System.out.println("FINALIZO CREACION OBJETOS:"+Utilidades.formatearMarcaTiempo(new Date()));
 		if(idPeriod.equals(appConfigInfo.periodIdDailyData)){
 			postPrasdesDailyData(listaPrasdesVals);
 		}
@@ -268,6 +291,20 @@ public class RestAdapterImpl implements RestAdapter {
 		}			
 	}
 	
+	private Long obtenerValorMapLong(Map<Long, Long>  lista, Long value){
+		try {
+			return lista.get(value);
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	private Long obtenerValorMapString(Map<String, Long>  lista, String value){
+		try {
+			return lista.get(value);
+		} catch (NullPointerException e) {			
+			return null;
+		}
+	}
 	
 	private ConsultaResponseDTO obtenerResponsePrasdesFromIdeam(co.gov.ideam.sshm.web.dto.ConsultaResponseDTO item ,Map<Long, Long>  equivIdEstIdeamPrasdes, Map<String, Long> equivIdVarIdeamPrasdes, Map<Long, Long> equivIdSourceIdeamPrasdes, Map<Long, Long> equivIdQualityIdeamPrasdes){
 		ConsultaResponseDTO dto = new ConsultaResponseDTO();			
@@ -275,7 +312,7 @@ public class RestAdapterImpl implements RestAdapter {
 		dto.setnIdvar(equivIdVarIdeamPrasdes.get(item.getIdVariable()));
 		dto.setnIdsource(equivIdSourceIdeamPrasdes.get(item.getIdSource()));
 		dto.setdDatadate(item.getDateDatadate());
-		dto.setnData(new BigDecimal(item.getData()));
+		dto.setnData(item.getData());
 		dto.setnIdflag(item.getIdFlag());
 		dto.setnIdqc(equivIdQualityIdeamPrasdes.get(item.getIdqc()));
 		dto.setnIduser(appConfigInfo.prasdesDefaultUser);
@@ -288,7 +325,7 @@ public class RestAdapterImpl implements RestAdapter {
 		dto.setnIdvar(equivIdVarIdeamPrasdes.get(item.getIdVariable()));
 		dto.setnIdsource(equivIdSourceIdeamPrasdes.get(item.getIdSource()));
 		dto.setdDatadate(item.getDateDatadate());
-		dto.setnData(new BigDecimal(item.getData()));
+		dto.setnData(item.getData());
 		dto.setnIdflag(item.getIdFlag());
 		dto.setnIdqc(equivIdQualityIdeamPrasdes.get(item.getIdqc()));
 		dto.setnIduser(appConfigInfo.prasdesDefaultUser);

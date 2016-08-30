@@ -11,5 +11,6 @@ public interface InstantdataService {
 
 	public void actualizarDatosInstantaneos(List<Instantdata> datosInstantaneos);
 	public List<ConsultaResponseDTO> consultarDatosInstantaneosPorParametros(ConsultaRestFormDTO parametros);
+	public List<ConsultaResponseDTO> consultarDatosInstantaneosPorParametrosPrasdes(ConsultaRestFormDTO parametros);
 	
 }

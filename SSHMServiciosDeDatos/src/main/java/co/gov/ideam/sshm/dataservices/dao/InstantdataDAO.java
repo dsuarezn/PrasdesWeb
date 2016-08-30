@@ -12,4 +12,5 @@ public interface InstantdataDAO {
 	
 	public List<ConsultaResponseDTO> consultarInformacionInstantanea(ConsultaRestFormDTO params);
 	public void persistirInformacionInstantanea(List<Instantdata> datosInstantaneos);
+	public List<ConsultaResponseDTO> consultarInformacionInstantaneaPrasdes(ConsultaRestFormDTO params);
 }

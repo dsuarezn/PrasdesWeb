@@ -20,15 +20,13 @@
 	    <exclude-subsystems>
 		    <subsystem name="jpa" />
 		</exclude-subsystems>
-		<exclusions>
-			<module name="org.apache.log4j" />
-            <module name="org.slf4j" />
+		<exclusions>			
 		    <module name="javaee.api" />		    
 		</exclusions>
         <dependencies>            
 <!--             <module name="org.codehaus.jackson.jackson-core-asl"/> -->
 <!--             <module name="org.codehaus.jackson.jackson-mapper-asl"/> -->
-            <module name="org.slf4j"/>
+<!--             <module name="org.slf4j"/> -->
         </dependencies>
     </deployment>
 </jboss-deployment-structure>

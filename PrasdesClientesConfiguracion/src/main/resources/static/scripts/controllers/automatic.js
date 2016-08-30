@@ -57,7 +57,7 @@ prasdesApp.controller('automaticCtrl', function ($scope,$http,$location) {
         			idVariable : $scope.selData.idVariable,
         			noDays : $scope.selData.noDays
     		};
-        	var res = $http.post('/programador', dataObj);
+        	var res = $http.post('/PrasdesClientesConfiguracion/programador', dataObj);
     		res.success(function(data, status, headers, config) {
     			$scope.message = data;
     			$scope.loadTareas();

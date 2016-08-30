@@ -31,6 +31,22 @@ import javax.persistence.TemporalType;
 			+ "(m.id.datadate between :pfechaIni and :pfechafin and :pfechaIni is not null and :pfechafin is not null) "
 			+ "OR (:pfechaIni is null and m.id.datadate <= :pfechafin and :pfechafin is not null) "
 			+ "OR (:pfechafin is null and m.id.datadate >= :pfechaIni and :pfechaIni is not null) "
+			+ "OR (:pfechafin is null and :pfechaIni is null))"),
+	@NamedQuery(name="Monthlydata.findByParametersPrasdes", 
+	query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseDTO(m.id.idstation, m.id.idvariable, m.id.datadate, m.id.idsource, m.data, m.idflag, m.idqc, m.user, m.date, m.idSec) "
+			+ "FROM Monthlydata m, PrasdesEquiv pe, PrasdesEquiv pv, PrasdesEquiv pq " 
+			+ "WHERE (m.id.idvariable = :pIdVariable or :pIdVariable is null) "
+			+ "AND m.id.idstation = cast(pe.id.ideamVal as long) "
+			+ "AND m.idqc = cast(pe.id.ideamVal as long) "
+			+ "AND m.id.idvariable = pv.id.ideamVal "
+			+ "AND pe.id.tipoVal = 'station' "
+			+ "AND pv.id.tipoVal = 'variable' "
+			+ "AND pq.id.tipoVal = 'quality' "
+			+ "AND (m.id.idstation = :pIdStation or :pIdStation is null) "
+			+ "AND ("
+			+ "(m.id.datadate between :pfechaIni and :pfechafin and :pfechaIni is not null and :pfechafin is not null) "
+			+ "OR (:pfechaIni is null and m.id.datadate <= :pfechafin and :pfechafin is not null) "
+			+ "OR (:pfechafin is null and m.id.datadate >= :pfechaIni and :pfechaIni is not null) "
 			+ "OR (:pfechafin is null and :pfechaIni is null))")
 })
 public class Monthlydata implements Serializable {
@@ -43,7 +59,7 @@ public class Monthlydata implements Serializable {
 	private long idSec;
 
 	@Column(name="MNDT_DATA")
-	private String data;
+	private BigDecimal data;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="MNDT_DATE")
@@ -75,11 +91,11 @@ public class Monthlydata implements Serializable {
 
 
 
-	public String getData() {
+	public BigDecimal getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(BigDecimal data) {
 		this.data = data;
 	}
 

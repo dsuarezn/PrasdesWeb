@@ -22,7 +22,7 @@ import co.gov.ideam.sshm.utilidades.Utilidades;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsultaResponseDTO {
 	
-	public ConsultaResponseDTO(Long idStation, String idVariable, Date datadate, Long idSource, String data,
+	public ConsultaResponseDTO(Long idStation, String idVariable, Date datadate, Long idSource, BigDecimal data,
 			Long idFlag, Long idqc, Long user, Date date, Long idSec) {
 		super();	
 		this.id = idSec;
@@ -59,7 +59,7 @@ public class ConsultaResponseDTO {
 	private Long idSource;	
 	
 	@Mapping("data")
-	private String data;
+	private BigDecimal data;
 	
 	@Mapping("idflag")
 	private Long idFlag;
@@ -116,12 +116,12 @@ public class ConsultaResponseDTO {
 	}
 
 	@JsonGetter("data")
-	public String getData() {
+	public BigDecimal getData() {
 		return data;
 	}
 
 	@JsonSetter("data")
-	public void setData(String data) {
+	public void setData(BigDecimal data) {
 		this.data = data;
 	}
 

@@ -30,10 +30,14 @@ import java.util.Date;
 				+ "OR (:pfechafin is null and :pfechaIni is null))"),
 		@NamedQuery(name="Dailydata.findByParametersPrasdes",  
 		query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseDTO(dd.id.idstation,dd.id.idvariable,dd.id.datadate,dd.id.idsource,dd.data,dd.idflag,dd.idqc,dd.user,dd.date,dd.idSec) "
-				+ "FROM Dailydata dd, PrasdesEquiv pe "
+				+ "FROM Dailydata dd, PrasdesEquiv pe, PrasdesEquiv pv, PrasdesEquiv pq "
 				+ "WHERE (dd.id.idvariable = :pIdVariable or :pIdVariable is null) "
 				+ "AND dd.id.idstation = cast(pe.id.ideamVal as long) "
+				+ "AND dd.idqc = cast(pq.id.ideamVal as long) "
+				+ "AND dd.id.idvariable = pv.id.ideamVal "
 				+ "AND pe.id.tipoVal = 'station' "
+				+ "AND pv.id.tipoVal = 'variable' "
+				+ "AND pq.id.tipoVal = 'quality' "
 				+ "AND (dd.id.idstation = :pIdStation or :pIdStation is null) "
 				+ "AND ("
 				+ "(dd.id.datadate between :pfechaIni and :pfechafin and :pfechaIni is not null and :pfechafin is not null) "
@@ -52,7 +56,7 @@ public class Dailydata implements Serializable {
 	private DailydataPK id;
 
 	@Column(name="DLDT_DATA")
-	private String data;
+	private BigDecimal data;
 
 
 	@Temporal(TemporalType.DATE)
@@ -87,11 +91,11 @@ public class Dailydata implements Serializable {
 		this.id = id;
 	}
 
-	public String getData() {
+	public BigDecimal getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(BigDecimal data) {
 		this.data = data;
 	}
 

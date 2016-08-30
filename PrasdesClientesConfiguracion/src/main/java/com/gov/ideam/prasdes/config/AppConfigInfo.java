@@ -46,6 +46,8 @@ public class AppConfigInfo {
 	@Value("${serviceurl.get.equiv.quality}")
 	public String equivQualityServiceUrl;
 	
+	@Value("${serviceurl.get.equiv.flag}")
+	public String equivFlagServiceUrl;	
 	
 	@Value("${serviceurl.period}")
 	public String periodServiceUrl;

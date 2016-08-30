@@ -15,6 +15,7 @@ import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.DependsOn;
@@ -28,7 +29,7 @@ import co.gov.ideam.prasdes.web.dto.MigTaskDTO;
 @Component
 @Qualifier("quartzTaskSchedulerImpl")
 @DependsOn("restAdapterImpl")
-public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler {
+public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler, InitializingBean {
 	 
 	@Autowired
 	private RestAdapterImpl restAdapterImpl;
@@ -37,7 +38,13 @@ public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler {
 	
 	public List<QuartzMigTask> jobList;
 
-	@PostConstruct
+	
+	public QuartzTaskSchedulerImpl() {
+		super();
+		
+	}
+
+	@Override
 	public void initScheduler(){		
 		try {
 			scheduler = new StdSchedulerFactory().getScheduler();
@@ -138,6 +145,11 @@ public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler {
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		initScheduler();
 	}
 	
 }

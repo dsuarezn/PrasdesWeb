@@ -192,7 +192,7 @@ public class Utilidades {
 		}		
 		uri = queryString.apply(uri);		
 		dto.setServiceUrl(uri.toString());
-//		System.out.println("serviceUri:"+dto.getServiceUrl());
+		System.out.println("serviceUri:"+dto.getServiceUrl());
 		return dto;
 	}
 	

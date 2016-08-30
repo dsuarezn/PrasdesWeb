@@ -35,23 +35,23 @@
         <javax.validation.version>1.1.0.Final</javax.validation.version>
         <version.dozer>5.4.0</version.dozer>
 		<maven.compiler.source>1.7</maven.compiler.source>
-   		<maven.compiler.target>1.7</maven.compiler.target>
+   		<maven.compiler.target>1.7</maven.compiler.target>   		
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>			
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>			
 			 <exclusions>
 		        <exclusion>
 		          <groupId>org.springframework.boot</groupId>
-		          <artifactId>spring-boot-starter-tomcat</artifactId>
+		          <artifactId>spring-boot-starter-tomcat</artifactId>		           
 		        </exclusion>
 		     </exclusions>
 		</dependency>
@@ -67,7 +67,7 @@
         </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>			
 			<scope>test</scope>
 		</dependency>
 			<dependency>
@@ -77,6 +77,10 @@
 				<exclusions>
 					<exclusion>
 						<artifactId>slf4j-api</artifactId>
+						<groupId>org.slf4j</groupId>
+					</exclusion>
+					<exclusion>
+						<artifactId>slf4j-log4j12</artifactId>
 						<groupId>org.slf4j</groupId>
 					</exclusion>
 				</exclusions>

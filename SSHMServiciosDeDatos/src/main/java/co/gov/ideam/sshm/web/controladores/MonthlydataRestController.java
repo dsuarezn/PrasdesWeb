@@ -40,9 +40,13 @@ public class MonthlydataRestController extends CommonController {
     		@RequestParam(value = "v", required = false) String idVariable,
     		@RequestParam(value = "fi", required = false) String sfechaInicio,
     		@RequestParam(value = "ff", required = false) String sfechaFin,
-    		@RequestParam(value = "p", required = false) Long idPeriod
+    		@RequestParam(value = "p", required = false) Long idPeriod,
+    		@RequestParam(value = "type", required = false) String type
     	) {
 		ConsultaRestFormDTO datosConsulta = new ConsultaRestFormDTO(idEstacion,idVariable,idCustomer,sfechaInicio, sfechaFin, idPeriod);
+		if("prasdes".equals(type)){
+    		return monthlydataServiceImpl.consultarDatosMensualesPorParametrosPrasdes(datosConsulta);
+    	}
     	return monthlydataServiceImpl.consultarDatosMensualesPorParametros(datosConsulta);
     }
 	

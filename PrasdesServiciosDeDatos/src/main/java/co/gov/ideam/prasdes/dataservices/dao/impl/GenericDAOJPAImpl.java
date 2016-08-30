@@ -41,6 +41,7 @@ public class GenericDAOJPAImpl<T, PK extends Serializable> extends CommonDAOImpl
 
 	@Override
 	public T update(T transientObject) {
+		  
 		  return this.em.merge(transientObject);		
 	}
 
@@ -50,11 +51,8 @@ public class GenericDAOJPAImpl<T, PK extends Serializable> extends CommonDAOImpl
 		this.em.remove(persistentObject);
 	}
 	
-	
-	
 	public Collection<T> BatchUpdateWithEmSession(Collection<T> entities) {		  
-		  final List<T> savedEntities = new ArrayList<T>(entities.size());
-		  int size = entities.size();
+		  final List<T> savedEntities = new ArrayList<T>(entities.size());//		  
 		  int i = 0;
 		  try {
 			  for (T t : entities) {
@@ -62,21 +60,18 @@ public class GenericDAOJPAImpl<T, PK extends Serializable> extends CommonDAOImpl
 			    i++;
 			    if (i % batchSize == 0) {
 			      em.flush();
-			      em.clear();
-			      i=0;
+			      em.clear();			      
 			    }			    
-			  }
-			  if (i > 0){
-				  em.flush();
-			      em.clear();
-			  }
-			  
+			  }	 
+			  em.flush();
+		      em.clear();
 		  } 
 		  catch (Exception e) {
 			  throw new PersistenceException("Error al relizar la acualización de datos",e);
 		  }  
 		  return savedEntities;
 		}
+
 
 
 }

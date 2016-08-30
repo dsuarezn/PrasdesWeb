@@ -60,6 +60,12 @@ public class MonthlydataRestController extends CommonController {
         	Monthlydata datoMensual= new Monthlydata();
         	dozerMapper.map(datoConsulta, datoMensual);
         	datoMensual.setDDateadd(new Date());
+        	if(datoMensual.getNIdflag()==null){
+        		datoMensual.setNIdflag(flagNulosValues);
+        	}
+        	if(datoMensual.getNIdqc()==null){
+        		datoMensual.setNIdqc(idqcNulosValues);
+        	}
         	if(aceptarNulos==false){
         		if(datoConsulta.getnData()!=null){
         			datosMensuales.add(datoMensual);
@@ -67,9 +73,9 @@ public class MonthlydataRestController extends CommonController {
         	}
         	else{
         		datosMensuales.add(datoMensual);
-        	}
+        	}  
         	
-		}    	   
+		}         
         monthlydataServiceImpl.actualizarInfoMensual(datosMensuales);
     }
     

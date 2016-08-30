@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.gov.ideam.prasdes.dataservices.entidades.Instantdata;
+import co.gov.ideam.prasdes.utilidades.Utilidades;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaRestFormDTO;
@@ -51,15 +52,23 @@ public class InstantdataRestController extends CommonController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosInstantaneos(@RequestBody String datosInstantaneosjson) {
+    	System.out.println("ENTRO METODO POST:"+Utilidades.formatearMarcaTiempo(new Date()));
     	logger.info("Respondiento peticion rest (post)...");
     	datosInstantaneosjson = cleanJsonIncorrectFormat(datosInstantaneosjson);	 
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosInstantaneosjson);		
 		Mapper dozerMapper = new DozerBeanMapper();    	
 		List<Instantdata> datosInstantaneos = new ArrayList<Instantdata>();
+		System.out.println("INICIO SET NULLS:"+Utilidades.formatearMarcaTiempo(new Date()));
         for (ConsultaResponseDTO datoConsulta : listaConsultaResponse) {        
         	Instantdata datoInstantaneo= new Instantdata();
         	dozerMapper.map(datoConsulta, datoInstantaneo);
         	datoInstantaneo.setDDateadd(new Date());
+        	if(datoInstantaneo.getNIdflag()==null){
+        		datoInstantaneo.setNIdflag(flagNulosValues);
+        	}
+        	if(datoInstantaneo.getNIdqc()==null){
+        		datoInstantaneo.setNIdqc(idqcNulosValues);
+        	}
         	if(aceptarNulos==false){
         		if(datoConsulta.getnData()!=null){
         			datosInstantaneos.add(datoInstantaneo);
@@ -68,7 +77,10 @@ public class InstantdataRestController extends CommonController {
         	else{
         		datosInstantaneos.add(datoInstantaneo);
         	}        	
-		}    	   
-        instantdataServiceImpl.actualizarInfoInstantanea(datosInstantaneos);        
+		}
+        System.out.println("FINAL SET NULLS:"+Utilidades.formatearMarcaTiempo(new Date()));
+        System.out.println("INICIO PERSISTIR DATOS:"+Utilidades.formatearMarcaTiempo(new Date()));
+        instantdataServiceImpl.actualizarInfoInstantanea(datosInstantaneos);
+        System.out.println("FIN PERSISTIR DATOS:"+Utilidades.formatearMarcaTiempo(new Date()));
     }
 }

@@ -75,7 +75,7 @@ prasdesApp.controller('sshmCtrl', function ($scope,$http) {
     			idStrVariable : $scope.selData.idStrVariable
 		};
     	
-		var res = $http.post('/sshm/ideamPrasdes', dataObj);
+		var res = $http.post('/PrasdesClientesConfiguracion/sshm/ideamPrasdes', dataObj);
 		res.success(function(data) {			
 			$scope.inprogress = false;
 			BootstrapDialog.show({					

@@ -29,6 +29,16 @@ public class InstantdataDAOImpl extends GenericDAOJPAImpl<Instantdata, Long> imp
 		query.setParameter("pfechafin", params.getFechaFin());
 		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();
 	}
+	
+	@Override
+	public List<ConsultaResponseDTO> consultarInformacionInstantaneaPrasdes(ConsultaRestFormDTO params) {
+		Query query = em.createNamedQuery("Instantdata.findByParametersPrasdes");				
+		query.setParameter("pIdStation", params.getIdEstacion());
+		query.setParameter("pIdVariable", params.getIdVariable());
+		query.setParameter("pfechaIni", params.getFechaInicio());
+		query.setParameter("pfechafin", params.getFechaFin());
+		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();
+	}
 
 	@Override
 	public void persistirInformacionInstantanea(List<Instantdata> datosInstantaneos) {

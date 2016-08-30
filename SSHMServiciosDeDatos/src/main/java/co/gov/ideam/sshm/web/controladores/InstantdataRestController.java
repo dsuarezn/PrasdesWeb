@@ -40,11 +40,16 @@ public class InstantdataRestController extends CommonController {
     		@RequestParam(value = "v", required = false) String idVariable,
     		@RequestParam(value = "fi", required = false) String sfechaInicio,
     		@RequestParam(value = "ff", required = false) String sfechaFin,
-    		@RequestParam(value = "p", required = false) Long idPeriod
+    		@RequestParam(value = "p", required = false) Long idPeriod,
+    		@RequestParam(value = "type", required = false) String type
     	) {
 		ConsultaRestFormDTO datosConsulta = new ConsultaRestFormDTO(idEstacion,idVariable,idCustomer,sfechaInicio, sfechaFin, idPeriod);
-    	List<ConsultaResponseDTO> lista = instantdataServiceImpl.consultarDatosInstantaneosPorParametros(datosConsulta);
-    	return lista;
+    	
+		if("prasdes".equals(type)){
+    		return instantdataServiceImpl.consultarDatosInstantaneosPorParametrosPrasdes(datosConsulta); 
+    	}
+		
+    	return instantdataServiceImpl.consultarDatosInstantaneosPorParametros(datosConsulta);
     }
     
     @CrossOrigin

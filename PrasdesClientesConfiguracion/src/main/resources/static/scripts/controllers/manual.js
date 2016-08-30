@@ -95,7 +95,7 @@ prasdesApp.controller('manualCtrl', function ($scope,$http) {
     			idVariable : $scope.selData.idVariable
 		};
     	    	    	    
-		var res = $http.post('/manual', dataObj);
+		var res = $http.post('/PrasdesClientesConfiguracion/manual', dataObj);
 		res.success(function(data) {	
 			BootstrapDialog.show({					
                 title: 'Success',

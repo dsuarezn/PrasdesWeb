@@ -62,6 +62,12 @@ public class DailydataRestController extends CommonController {
         	Dailydata datoDiario= new Dailydata();
         	dozerMapper.map(datoConsulta, datoDiario);
         	datoDiario.setDDateadd(new Date());
+        	if(datoDiario.getNIdflag()==null){
+        		datoDiario.setNIdflag(flagNulosValues);
+        	}
+        	if(datoDiario.getNIdqc()==null){
+        		datoDiario.setNIdqc(idqcNulosValues);
+        	}
         	if(aceptarNulos==false){
         		if(datoConsulta.getnData()!=null){
         			datosDiarios.add(datoDiario);
@@ -69,13 +75,8 @@ public class DailydataRestController extends CommonController {
         	}
         	else{
         		datosDiarios.add(datoDiario);
-        	}
-        	
+        	}        	        
 		}    	   
         dailydataServiceImpl.actualizarInfoDiaria(datosDiarios);
-    }
-    
-    
-    	
-    
+    }            	 
 }

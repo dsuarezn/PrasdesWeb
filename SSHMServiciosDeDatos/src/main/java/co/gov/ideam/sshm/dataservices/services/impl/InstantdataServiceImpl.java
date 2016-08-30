@@ -25,5 +25,11 @@ public class InstantdataServiceImpl extends ServiceCommons implements Instantdat
 	public List<ConsultaResponseDTO> consultarDatosInstantaneosPorParametros(ConsultaRestFormDTO parametros) {
 		return daoFactory.getInstantdataDAOImpl().consultarInformacionInstantanea(parametros);
 	}
+	
+	@Override
+	public List<ConsultaResponseDTO> consultarDatosInstantaneosPorParametrosPrasdes(ConsultaRestFormDTO parametros) {
+		List<ConsultaResponseDTO> lista = daoFactory.getInstantdataDAOImpl().consultarInformacionInstantaneaPrasdes(parametros);
+		return lista;
+	}
 
 }

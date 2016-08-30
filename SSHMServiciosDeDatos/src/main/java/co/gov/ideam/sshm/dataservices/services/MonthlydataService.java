@@ -10,5 +10,6 @@ public interface MonthlydataService {
 
 	public void actualizarDatosMensuales(List<Monthlydata> datosMensuales);
 	public List<ConsultaResponseDTO> consultarDatosMensualesPorParametros(ConsultaRestFormDTO parametros);
+	public List<ConsultaResponseDTO> consultarDatosMensualesPorParametrosPrasdes(ConsultaRestFormDTO parametros);
 	
 }
