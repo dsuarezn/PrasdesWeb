@@ -1,6 +1,5 @@
 package com.gov.ideam.prasdes.rest;
 
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -133,7 +132,7 @@ public class RestAdapterImpl implements RestAdapter {
 	
 	public void deletePrasdesTasks(MigTask task) {
 		RestTemplate restTemplate = getRestTemplate();
-		String url=appConfigInfo.migTaskServiceUrl;		
+		String url=appConfigInfo.migTaskServiceUrl+"/"+task.getnTaskId();		
 		restTemplate.delete(url, task); 		
 	}
 

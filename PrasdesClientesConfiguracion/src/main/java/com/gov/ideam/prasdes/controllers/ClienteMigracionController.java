@@ -1,10 +1,8 @@
 package com.gov.ideam.prasdes.controllers;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.thymeleaf.util.StringUtils;
 
 import com.gov.ideam.prasdes.config.AppConfigInfo;
 import com.gov.ideam.prasdes.rest.RestAdapter;
 
-import ch.qos.logback.classic.pattern.Util;
-import co.gov.ideam.prasdes.dataservices.entidades.Customerwebserv;
-import co.gov.ideam.prasdes.utilidades.UrlEncodedQueryString;
 import co.gov.ideam.prasdes.utilidades.Utilidades;
 import co.gov.ideam.prasdes.web.dto.ConnectionDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;

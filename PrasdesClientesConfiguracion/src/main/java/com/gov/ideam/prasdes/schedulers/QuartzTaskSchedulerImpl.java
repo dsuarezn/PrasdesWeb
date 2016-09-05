@@ -40,18 +40,23 @@ public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler, Initializin
 
 	
 	public QuartzTaskSchedulerImpl() {
-		super();
-		
+		super();			
 	}
 
-	@Override
+
+    
+	
 	public void initScheduler(){		
 		try {
 			scheduler = new StdSchedulerFactory().getScheduler();
 		} catch (SchedulerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}				
+	}
+	//@PostConstruct	
+	public void initStoredTasks(){
+		System.out.println("Intento de recobrar procesos....");
 		List<MigTaskDTO> storedTasks = restAdapterImpl.getPrasdesTasks();
 		jobList = constructJobListFromMigTaskDTO(storedTasks);
 		scheduleJobList(jobList);
@@ -150,6 +155,7 @@ public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler, Initializin
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		initScheduler();
+		initStoredTasks();
 	}
 	
 }

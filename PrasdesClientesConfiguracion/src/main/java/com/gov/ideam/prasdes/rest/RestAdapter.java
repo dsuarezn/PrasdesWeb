@@ -8,7 +8,6 @@ import co.gov.ideam.prasdes.dataservices.entidades.Customerstationvar;
 import co.gov.ideam.prasdes.dataservices.entidades.Customerwebserv;
 import co.gov.ideam.prasdes.dataservices.entidades.MigTask;
 import co.gov.ideam.prasdes.dataservices.entidades.Period;
-import co.gov.ideam.prasdes.dataservices.entidades.PrasdesEquiv;
 import co.gov.ideam.prasdes.dataservices.entidades.Station;
 import co.gov.ideam.prasdes.dataservices.entidades.Variable;
 import co.gov.ideam.prasdes.web.dto.ConnectionDTO;

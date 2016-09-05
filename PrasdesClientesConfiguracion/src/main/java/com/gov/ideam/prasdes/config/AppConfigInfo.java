@@ -1,7 +1,5 @@
 package com.gov.ideam.prasdes.config;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.gov.ideam.prasdes.config.AppConfigInfo;
 import com.gov.ideam.prasdes.rest.RestAdapter;
 import com.gov.ideam.prasdes.schedulers.QuartzTaskScheduler;
@@ -41,6 +40,7 @@ public class ScheduledMigTaskController {
 	public String getScheduledMigracionView(Model model){				
 //		model.addAttribute("listaTareas", restAdapterImpl.getPrasdesTasks());
 		//Atributo añadido obligatoriamente para que no se reviente thymeleaf (por el binding de atributos)
+//		quartzTaskSchedulerImpl.initStoredTasks();
 		model.addAttribute("jobdto",new ScheduledMigTaskDTO());
 		model.addAttribute("mensajeError","");
 		return "automatic";
@@ -67,12 +67,18 @@ public class ScheduledMigTaskController {
         return restAdapterImpl.getPrasdesConnections();
     }
 	
+	@CrossOrigin
 	@RequestMapping(value = "/{jobId}", method = RequestMethod.DELETE)
 	public String deleteMigracionTask(Model model,@PathVariable("jobId") Long jobId){
 		restAdapterImpl.deletePrasdesTasks(new MigTask(jobId));
+		quartzTaskSchedulerImpl.deleteJob(new MigTask(jobId));
 		model.addAttribute("mensajeError","");
+		System.out.println("entro al delete del prades clientes");
 		return "automatic";
 	}
+	
+	
+	
 	
 	@ModelAttribute("listaPaises")
     public List<Country> countryList() {
