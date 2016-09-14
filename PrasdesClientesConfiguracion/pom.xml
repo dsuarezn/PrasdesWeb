@@ -6,7 +6,7 @@
 	<groupId>com.gov.ideam.prasdes</groupId>
 	<artifactId>PrasdesClientesConfig</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>PrasdesClientesConfiguracion</name>
 	<description>Aplicacion que contiene las vistas de los clientes de configuracion de estaciones y migracion</description>
@@ -19,21 +19,22 @@
 	</parent>
 
 	<properties>
-		<pom.type>SpringBootEmbebedTomcat</pom.type>
+		<pom.type>JbossEAP6.1+</pom.type>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
+		<nekohtml.version>1.9.22</nekohtml.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-<!-- 			 <exclusions> -->
-<!-- 		        <exclusion> -->
-<!-- 		          <groupId>org.springframework.boot</groupId> -->
-<!-- 		          <artifactId>spring-boot-starter-tomcat</artifactId> -->
-<!-- 		        </exclusion> -->
-<!-- 		     </exclusions> -->
+			 <exclusions>
+		        <exclusion>
+		          <groupId>org.springframework.boot</groupId>
+		          <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		     </exclusions>
 		</dependency>
 		
 		<dependency>
@@ -46,6 +47,11 @@
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-devtools</artifactId>
 	    </dependency>
+	    
+	    <dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 	    
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -96,40 +102,41 @@
 	  	<dependency>
 			<groupId>net.sourceforge.nekohtml</groupId>
 			<artifactId>nekohtml</artifactId>
-			<version>1.9.22</version>
+			<version>${nekohtml.version}</version>
 		</dependency>
+		
 
+		<dependency>
+		    <groupId>org.springframework.retry</groupId>
+		    <artifactId>spring-retry</artifactId>
+		    <version>1.1.2.RELEASE</version>
+		</dependency>
+		
+		
+		
+
+		
+		
+		
+		
 	    
 		<!-- We need to include the javax.servlet API specs, the implementation will be provided by Wildfly / JBoss-->
-<!-- 	    <dependency> -->
-<!-- 	      <groupId>javax.servlet</groupId> -->
-<!-- 	      <artifactId>javax.servlet-api</artifactId> -->
-<!-- 	      <scope>provided</scope> -->
-<!-- 	    </dependency> -->
+	    <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <scope>provided</scope>
+	    </dependency>
 
 	    <dependency>
 	    	<groupId>org.springframework.boot</groupId>
 	    	<artifactId>spring-boot-starter-security</artifactId>
 	    </dependency>
 	    <dependency>
-	    	<groupId>org.scala-lang</groupId>
-	    	<artifactId>scala-library</artifactId>
-	    	<version>2.11.0</version>
-	    </dependency>
-	    <dependency>
 	    	<groupId>org.springframework.boot</groupId>
-	    	<artifactId>spring-boot-starter-jersey</artifactId>
+	    	<artifactId>spring-boot-configuration-processor</artifactId>
+	    	<optional>true</optional>
 	    </dependency>
 	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 	
 
 </project>

@@ -23,7 +23,7 @@ static final Logger logger = LogManager.getLogger(CountryRestController.class.ge
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Country> consultarListPaises() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return countryServiceImpl.obtenerListaPaises();    	     
     }
 	

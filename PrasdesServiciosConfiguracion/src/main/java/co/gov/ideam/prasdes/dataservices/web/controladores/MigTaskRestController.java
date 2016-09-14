@@ -30,14 +30,14 @@ public class MigTaskRestController extends CommonController {
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<MigTaskDTO> consultarTareas() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return migTaskServiceImpl.obtenerListadoTareas();    	     
     }
 	
 	@CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")    
     public @ResponseBody MigTask actulizarTarea(@RequestBody String jsonTarea) {
-    	logger.info("Respondiento peticion rest (post)...");	    	
+    	System.out.println("Respondiento peticion rest (post)...");	    	
     	ObjectMapper mapper = new ObjectMapper();    	 
     	MigTask tarea = null;
 		try {
@@ -59,7 +59,7 @@ public class MigTaskRestController extends CommonController {
 //	@CrossOrigin
 //    @RequestMapping(value = "", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)    
 //    public void eliminarTarea(@RequestBody String jsonTarea) {
-//    	logger.info("Respondiento peticion rest (post)...");	    	
+//    	System.out.println("Respondiento peticion rest (post)...");	    	
 //    	ObjectMapper mapper = new ObjectMapper();    	 
 //    	MigTask tarea = null;
 //		try {
@@ -81,7 +81,7 @@ public class MigTaskRestController extends CommonController {
 	@CrossOrigin
     @RequestMapping(value = "/{jobId}", method = RequestMethod.DELETE)    
     public void eliminar(@PathVariable("jobId") Long jobId) {
-    	logger.info("Respondiento delete peticion rest (post)...");	    	
+    	System.out.println("Respondiento delete peticion rest (post)...");	    	
     	MigTask tarea = migTaskServiceImpl.obtenerTareas(jobId); 			
     	migTaskServiceImpl.eliminarTarea(tarea);	    
     }

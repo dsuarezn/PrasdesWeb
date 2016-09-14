@@ -26,4 +26,10 @@ public class MonthlydataServiceImpl extends ServiceCommons implements Monthlydat
 		return daoFactory.getMonthlydataDAOImpl().consultarInformacionDiaria(parametros);
 	}
 
+	@Override
+	public List<ConsultaResponseDTO> consultarDatosMensualesPorParametrosPrasdes(ConsultaRestFormDTO parametros) {
+		List<ConsultaResponseDTO> lista=daoFactory.getMonthlydataDAOImpl().consultarInformacionDiariaPrasdes(parametros);
+		return lista;
+	}
+
 }

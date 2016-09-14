@@ -23,7 +23,7 @@ public class ConnectionRestController extends CommonController {
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<ConnectionDTO> consultarConnexiones() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return connectionServiceImpl.obtenerListadoConexionesActivas();    	     
     }
 	

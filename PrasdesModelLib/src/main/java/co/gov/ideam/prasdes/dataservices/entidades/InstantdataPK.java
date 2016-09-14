@@ -55,7 +55,14 @@ public class InstantdataPK implements Serializable {
 	public void setNIdsource(long nIdsource) {
 		this.nIdsource = nIdsource;
 	}
+	
+	
 
+	@Override
+	public String toString() {
+		return "InstantdataPK [nIdstation=" + nIdstation + ", nIdvar=" + nIdvar + ", dDatadate=" + dDatadate
+				+ ", nIdsource=" + nIdsource + "]";
+	}
 	public boolean equals(Object other) {
 		if (this == other) {
 			return true;

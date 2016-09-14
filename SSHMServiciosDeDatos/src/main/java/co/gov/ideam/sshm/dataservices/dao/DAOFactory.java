@@ -23,6 +23,10 @@ public class DAOFactory {
 
 	@Autowired
 	private MonthlydataDAO monthlydataDAOImpl;
+	
+	@Autowired
+	private PrasdesEquivDAO prasdesEquivDAOImpl;
+	
 
 	public InstantdataDAO getInstantdataDAOImpl() {
 		return instantdataDAOImpl;
@@ -35,6 +39,11 @@ public class DAOFactory {
 	public MonthlydataDAO getMonthlydataDAOImpl() {
 		return monthlydataDAOImpl;
 	}
+
+	public PrasdesEquivDAO getPrasdesEquivDAOImpl() {
+		return prasdesEquivDAOImpl;
+	}
+	
 	
 	
 	

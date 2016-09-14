@@ -10,5 +10,6 @@ public interface DailydataService {
 
 	public void actualizarDatosDiarios(List<Dailydata> datosDiarios);
 	public List<ConsultaResponseDTO> consultarDatosDiariosPorParametros(ConsultaRestFormDTO parametros);
+	public List<ConsultaResponseDTO> consultarDatosDiariosPorParametrosPrasdes(ConsultaRestFormDTO parametros);
 	
 }

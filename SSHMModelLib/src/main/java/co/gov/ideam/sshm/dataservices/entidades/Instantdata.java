@@ -16,9 +16,25 @@ import java.util.Date;
 @NamedQueries({
 	@NamedQuery(name="Instantdata.findAll", query="SELECT i FROM Instantdata i"),
 	@NamedQuery(name="Instantdata.findByParameters", 
-	query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseDTO(i.id.idstation,i.id.idvariable,i.id.datadate,i.id.idsource,i.data,i.idflag,i.idqc,i.user,i.date, i.idSec) "
+	query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO(i.id.idstation,i.id.idvariable,i.id.datadate,i.id.idsource,i.data,i.idflag,i.idqc,i.user,i.date, i.idSec) "
 			+ "FROM Instantdata i "
 			+ "WHERE (i.id.idvariable = :pIdVariable or :pIdVariable is null) "
+			+ "AND (i.id.idstation = :pIdStation or :pIdStation is null) "
+			+ "AND ("
+			+ "(i.id.datadate between :pfechaIni and :pfechafin  and :pfechaIni is not null and :pfechafin is not null) "
+			+ "OR (:pfechaIni is null and i.id.datadate <= :pfechafin and :pfechafin is not null) "
+			+ "OR (:pfechafin is null and i.id.datadate >= :pfechaIni and :pfechaIni is not null) "
+			+ "OR (:pfechafin is null and :pfechaIni is null))"),
+	@NamedQuery(name="Instantdata.findByParametersPrasdes", 
+	query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO(i.id.idstation,i.id.idvariable,i.id.datadate,i.id.idsource,i.data,i.idflag,i.idqc,i.user,i.date, i.idSec) "
+			+ "FROM Instantdata i, PrasdesEquiv pe, PrasdesEquiv pv, PrasdesEquiv pq "			
+			+ "WHERE (i.id.idvariable = :pIdVariable or :pIdVariable is null) "
+			+ "AND i.id.idstation = cast(pe.id.ideamVal as long) "
+			+ "AND i.idqc = cast(pq.id.ideamVal as long) "
+			+ "AND i.id.idvariable = pv.id.ideamVal "
+			+ "AND pe.id.tipoVal = 'station' "
+			+ "AND pv.id.tipoVal = 'variable' "
+			+ "AND pq.id.tipoVal = 'quality' "
 			+ "AND (i.id.idstation = :pIdStation or :pIdStation is null) "
 			+ "AND ("
 			+ "(i.id.datadate between :pfechaIni and :pfechafin  and :pfechaIni is not null and :pfechafin is not null) "

@@ -21,7 +21,7 @@ public class VariableRestController extends CommonController {
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Variable> consultarVariables() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return variableServiceImpl.obtenerListaVariables();    	     
     }
 	

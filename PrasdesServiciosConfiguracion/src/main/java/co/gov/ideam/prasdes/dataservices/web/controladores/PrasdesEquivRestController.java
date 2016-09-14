@@ -31,7 +31,7 @@ public class PrasdesEquivRestController extends CommonController {
     		@RequestParam(value = "p", required = false) String prasdesval,
     		@RequestParam(value = "i", required = false) String ideamval
     	) {
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
 //    	return connectionServiceImpl.obtenerListadoConexionesActivas();
     	return prasdesEquivServiceImpl.obtenerEquivalenciasPorParametro(type, ideamval, prasdesval);
     }

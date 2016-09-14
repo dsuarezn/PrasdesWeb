@@ -8,6 +8,7 @@ import co.gov.ideam.prasdes.web.dto.MigTaskDTO;
 public interface QuartzTaskScheduler {
 
 	public void initScheduler();
+	public String initStoredTasks();
 	public void startJobs();
 	public void scheduleJobList(List<QuartzMigTask> listaJobs);
 	public List<QuartzMigTask> constructJobListFromMigTask(List<MigTask> storedMigTask);

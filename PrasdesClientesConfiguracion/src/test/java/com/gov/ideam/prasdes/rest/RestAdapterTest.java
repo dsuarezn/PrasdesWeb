@@ -1,12 +1,5 @@
 package com.gov.ideam.prasdes.rest;
 
-import java.util.List;
-
-import org.junit.Test;
-
-import co.gov.ideam.prasdes.web.dto.ConnectionDTO;
-import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;
-
 public class RestAdapterTest {
 
 	

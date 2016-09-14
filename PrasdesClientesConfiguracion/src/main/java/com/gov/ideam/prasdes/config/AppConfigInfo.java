@@ -1,7 +1,5 @@
 package com.gov.ideam.prasdes.config;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -46,6 +44,8 @@ public class AppConfigInfo {
 	@Value("${serviceurl.get.equiv.quality}")
 	public String equivQualityServiceUrl;
 	
+	@Value("${serviceurl.get.equiv.flag}")
+	public String equivFlagServiceUrl;	
 	
 	@Value("${serviceurl.period}")
 	public String periodServiceUrl;

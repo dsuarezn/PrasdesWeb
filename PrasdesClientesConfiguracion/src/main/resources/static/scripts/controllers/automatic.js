@@ -57,7 +57,7 @@ prasdesApp.controller('automaticCtrl', function ($scope,$http,$location) {
         			idVariable : $scope.selData.idVariable,
         			noDays : $scope.selData.noDays
     		};
-        	var res = $http.post('/programador', dataObj);
+        	var res = $http.post('/PrasdesClientesConfiguracion/programador', dataObj);
     		res.success(function(data, status, headers, config) {
     			$scope.message = data;
     			$scope.loadTareas();
@@ -176,7 +176,8 @@ prasdesApp.controller('automaticCtrl', function ($scope,$http,$location) {
 	    	BootstrapDialog.confirm('¿Está seguro de eliminar el registro?', function(result){
 	            if(result) {
 	            	if($scope.pathMigTask!=""){
-				 		var httpRequestTareas = $http.delete($scope.pathMigTask+'/'+id)
+				 		//var httpRequestTareas = $http.delete($scope.pathMigTask+'/'+id)
+				 		var httpRequestTareas = $http.delete('/PrasdesClientesConfiguracion/programador'+'/'+id)
 				        .success(function(data, status) {
 				        	$scope.loadTareas();	   
 				        })

@@ -6,9 +6,9 @@
 	<groupId>co.gov.ideam.prasdes</groupId>
 	<artifactId>PrasdesServiciosDeDatos</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>PrasdesServiciosDeDatos2</name>
+	<name>PrasdesServiciosDeDatos</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -22,6 +22,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<version.dozer>5.4.0</version.dozer>
+		<maven.compiler.source>1.7</maven.compiler.source>
+   		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -32,12 +34,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-<!-- 			 <exclusions> -->
-<!-- 		        <exclusion> -->
-<!-- 		          <groupId>org.springframework.boot</groupId> -->
-<!-- 		          <artifactId>spring-boot-starter-tomcat</artifactId> -->
-<!-- 		        </exclusion> -->
-<!-- 		     </exclusions> -->
+			 <exclusions>
+		        <exclusion>
+		          <groupId>org.springframework.boot</groupId>
+		          <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		     </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -68,19 +70,27 @@
 						<artifactId>slf4j-api</artifactId>
 						<groupId>org.slf4j</groupId>
 					</exclusion>
+					<exclusion>
+						<artifactId>slf4j-log4j12</artifactId>
+						<groupId>org.slf4j</groupId>
+					</exclusion>
 				</exclusions>
 			</dependency>
-		
-	</dependencies>
+			
+			<!-- We need to include the javax.servlet API specs, the implementation will be provided by Wildfly / JBoss-->
+	    <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <scope>provided</scope>
+	    </dependency>
+
+	    <dependency>
+	    	<groupId>org.springframework.boot</groupId>
+	    	<artifactId>spring-boot-starter-jta-atomikos</artifactId>
+	    </dependency>
+	</dependencies>	
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+	
 	
 
 </project>

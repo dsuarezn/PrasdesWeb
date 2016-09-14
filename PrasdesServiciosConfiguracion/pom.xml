@@ -6,9 +6,9 @@
 	<groupId>co.gov.ideam.prasdes</groupId>
 	<artifactId>PrasdesServiciosConfiguracion</artifactId>
 	<version>1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
-	<name>PrasdesServiciosDeDatos2</name>
+	<name>PrasdesServiciosDeDatos</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -34,7 +34,8 @@
         <jstl.version>1.2</jstl.version>
         <javax.validation.version>1.1.0.Final</javax.validation.version>
         <version.dozer>5.4.0</version.dozer>
-		
+		<maven.compiler.source>1.7</maven.compiler.source>
+   		<maven.compiler.target>1.7</maven.compiler.target>   		
 	</properties>
 
 	<dependencies>
@@ -42,21 +43,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-<!-- 			 <exclusions> -->
-<!-- 		        <exclusion> -->
-<!-- 		          <groupId>org.springframework.boot</groupId> -->
-<!-- 		          <artifactId>spring-boot-starter-tomcat</artifactId> -->
-<!-- 		        </exclusion> -->
-<!-- 		     </exclusions> -->
+			<artifactId>spring-boot-starter-web</artifactId>			
+			 <exclusions>
+		        <exclusion>
+		          <groupId>org.springframework.boot</groupId>
+		          <artifactId>spring-boot-starter-tomcat</artifactId>		           
+		        </exclusion>
+		     </exclusions>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>mysql</groupId> -->
-<!-- 			<artifactId>mysql-connector-java</artifactId> -->
-<!-- 			<scope>runtime</scope> -->
-<!-- 		</dependency> -->
 		 <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
@@ -69,7 +67,7 @@
         </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>			
 			<scope>test</scope>
 		</dependency>
 			<dependency>
@@ -81,19 +79,20 @@
 						<artifactId>slf4j-api</artifactId>
 						<groupId>org.slf4j</groupId>
 					</exclusion>
+					<exclusion>
+						<artifactId>slf4j-log4j12</artifactId>
+						<groupId>org.slf4j</groupId>
+					</exclusion>
 				</exclusions>
 			</dependency>
-		
+		<!-- We need to include the javax.servlet API specs, the implementation will be provided by Wildfly / JBoss-->
+	    <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>javax.servlet-api</artifactId>
+	      <scope>provided</scope>
+	    </dependency>
 	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+		
 	
 
 </project>

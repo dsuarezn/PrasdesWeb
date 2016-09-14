@@ -49,7 +49,7 @@ public class MonthlydataRestController extends CommonController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosInstantaneos(@RequestBody String datosMensualesjson) {
-    	logger.info("Respondiento peticion rest (post)...");
+    	System.out.println("Respondiento peticion rest (post)...");
     	datosMensualesjson = cleanJsonIncorrectFormat(datosMensualesjson);
     	ObjectMapper mapper = new ObjectMapper();    	 
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosMensualesjson);		
@@ -60,6 +60,12 @@ public class MonthlydataRestController extends CommonController {
         	Monthlydata datoMensual= new Monthlydata();
         	dozerMapper.map(datoConsulta, datoMensual);
         	datoMensual.setDDateadd(new Date());
+        	if(datoMensual.getNIdflag()==null){
+        		datoMensual.setNIdflag(flagNulosValues);
+        	}
+        	if(datoMensual.getNIdqc()==null){
+        		datoMensual.setNIdqc(idqcNulosValues);
+        	}
         	if(aceptarNulos==false){
         		if(datoConsulta.getnData()!=null){
         			datosMensuales.add(datoMensual);
@@ -67,9 +73,9 @@ public class MonthlydataRestController extends CommonController {
         	}
         	else{
         		datosMensuales.add(datoMensual);
-        	}
+        	}  
         	
-		}    	   
+		}         
         monthlydataServiceImpl.actualizarInfoMensual(datosMensuales);
     }
     

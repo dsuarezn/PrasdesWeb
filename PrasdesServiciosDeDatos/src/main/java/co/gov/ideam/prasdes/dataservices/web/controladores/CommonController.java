@@ -55,6 +55,12 @@ public class CommonController {
 	@Value("${prasdes.aceptarNulos}")
 	public boolean aceptarNulos;
 	
+	@Value("${prasdes.flagDefaultNullValue}")
+	public Long flagNulosValues;
+	
+	@Value("${prasdes.idqcDefaultNullValue}")
+	public Long idqcNulosValues;
+	
 	protected Locale locale;	
 	public CommonController() {
 		super();

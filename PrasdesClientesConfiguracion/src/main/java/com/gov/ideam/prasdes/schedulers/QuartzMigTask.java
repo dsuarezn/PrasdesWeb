@@ -9,9 +9,6 @@ import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.Trigger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 
 import com.gov.ideam.prasdes.config.AppConfigInfo;
 import com.gov.ideam.prasdes.config.SpringContextBridge;
@@ -58,7 +55,7 @@ public class QuartzMigTask implements org.quartz.Job{
 	}
 
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
+	public void execute(JobExecutionContext context) throws JobExecutionException {		
 		appConfigInfo = SpringContextBridge.getAppConfigInfoInstance();
 		restAdapterImpl = SpringContextBridge.getRestAdapterInstance();
 		MigTask migTask = (MigTask) context.getJobDetail().getJobDataMap().get("migTask");

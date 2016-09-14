@@ -21,7 +21,7 @@ public class StationRestController extends CommonController {
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Station> consultarStations() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return stationServiceImpl.obtenerListaEstaciones();    	     
     }
 }

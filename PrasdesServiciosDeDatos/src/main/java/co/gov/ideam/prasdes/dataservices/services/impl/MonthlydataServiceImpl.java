@@ -11,7 +11,7 @@ import co.gov.ideam.prasdes.dataservices.services.MonthlydataService;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaRestFormDTO;
 
-@Transactional
+
 @Service
 @Qualifier("monthlydataServiceImpl")
 public class MonthlydataServiceImpl extends ServiceCommons implements MonthlydataService {
@@ -22,7 +22,7 @@ public class MonthlydataServiceImpl extends ServiceCommons implements Monthlydat
 	public List<ConsultaResponseDTO> consultarInfoMensualPorParametros(ConsultaRestFormDTO params) {
 		return daoFactory.getMonthlydataDAOImpl().consultarInfoMensualPorParametros(params);
 	}
-	
+	@Transactional(timeout=200,readOnly=true)
 	@Override
 	public void actualizarInfoMensual(List<Monthlydata> datosMensuales) {
 		daoFactory.getMonthlydataDAOImpl().persistirInfoMensual(datosMensuales);

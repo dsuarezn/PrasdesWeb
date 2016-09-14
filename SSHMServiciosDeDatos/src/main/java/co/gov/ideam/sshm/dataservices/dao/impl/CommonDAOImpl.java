@@ -15,6 +15,6 @@ public class CommonDAOImpl {
 	@Value("${limites.limiteRegistrosMensuales}")
 	protected Integer limiteRegistrosMensuales;
 
-	@Value("${hibernate.jdbc.batch_size}")
+	@Value("${spring.jpa.properties.hibernate.jdbc.batch_size}")
 	protected int batchSize;
 }

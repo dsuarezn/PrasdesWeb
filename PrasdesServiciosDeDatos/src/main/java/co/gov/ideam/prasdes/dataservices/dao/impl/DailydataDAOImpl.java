@@ -25,7 +25,7 @@ public class DailydataDAOImpl extends GenericDAOJPAImpl<Dailydata, DailydataPK> 
 	
 	@Override
 	public void persistirInfoDiaria(List<Dailydata> entities) {		
-		BatchUpdateWithEmSession(entities);
+		BatchUpdateWithEmSession(entities);		
 	}
 
 	@Override

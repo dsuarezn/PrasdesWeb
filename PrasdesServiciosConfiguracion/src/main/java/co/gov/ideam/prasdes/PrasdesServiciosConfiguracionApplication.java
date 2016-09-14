@@ -6,13 +6,13 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@Configuration
-@SpringBootApplication
-@EnableJpaRepositories("co.gov.ideam.prasdes.dataservices.entidades")
-@EntityScan("co.gov.ideam.prasdes.dataservices.entidades")
+//@Configuration
+//@SpringBootApplication
+//@EnableJpaRepositories("co.gov.ideam.prasdes.dataservices.entidades")
+//@EntityScan("co.gov.ideam.prasdes.dataservices.entidades")
 public class PrasdesServiciosConfiguracionApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PrasdesServiciosConfiguracionApplication.class, args);
-	}
+//	public static void main(String[] args) {
+//		SpringApplication.run(PrasdesServiciosConfiguracionApplication.class, args);
+//	}
 }

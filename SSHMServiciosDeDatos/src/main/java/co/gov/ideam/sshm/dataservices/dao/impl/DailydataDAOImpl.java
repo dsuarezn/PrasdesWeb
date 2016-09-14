@@ -27,6 +27,16 @@ public class DailydataDAOImpl extends GenericDAOJPAImpl<Dailydata, Long> impleme
 		query.setParameter("pfechafin", params.getFechaFin());
 		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosDiarios).getResultList();
 	}
+	
+	@Override
+	public List<ConsultaResponseDTO> consultarInformacionDiariaPrasdes(ConsultaRestFormDTO params) {
+		Query query = em.createNamedQuery("Dailydata.findByParametersPrasdes");				
+		query.setParameter("pIdStation", params.getIdEstacion());
+		query.setParameter("pIdVariable", params.getIdVariable());
+		query.setParameter("pfechaIni", params.getFechaInicio());
+		query.setParameter("pfechafin", params.getFechaFin());
+		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosDiarios).getResultList();
+	}
 
 	@Override
 	public void persistirInformacionDiaria(List<Dailydata> datosDiarios) {
