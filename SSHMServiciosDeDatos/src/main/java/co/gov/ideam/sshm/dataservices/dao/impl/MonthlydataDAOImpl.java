@@ -36,7 +36,7 @@ public class MonthlydataDAOImpl extends GenericDAOJPAImpl<Monthlydata, Long> imp
 		query.setParameter("pIdVariable", params.getIdVariable());
 		query.setParameter("pfechaIni", params.getFechaInicio());
 		query.setParameter("pfechafin", params.getFechaFin());
-		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();
+		return (List<ConsultaResponseDTO>)query.getResultList();
 	}
 
 	@Override

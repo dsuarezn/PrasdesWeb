@@ -5,8 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.orm.jpa.EntityScan;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 @Configuration
 @SpringBootApplication
@@ -23,4 +25,9 @@ public class PrasdesServiciosConfiguracionApplicationJboss extends SpringBootSer
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(PrasdesServiciosConfiguracionApplicationJboss.class);
     }
+	
+	@Bean
+	public HibernateJpaSessionFactoryBean sessionFactory() {
+	    return new HibernateJpaSessionFactoryBean();
+	}
 }

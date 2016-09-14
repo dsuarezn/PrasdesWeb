@@ -49,7 +49,7 @@ public class MonthlydataRestController extends CommonController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosInstantaneos(@RequestBody String datosMensualesjson) {
-    	logger.info("Respondiento peticion rest (post)...");
+    	System.out.println("Respondiento peticion rest (post)...");
     	datosMensualesjson = cleanJsonIncorrectFormat(datosMensualesjson);
     	ObjectMapper mapper = new ObjectMapper();    	 
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosMensualesjson);		

@@ -8,11 +8,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.gov.ideam.sshm.dataservices.dao.DailydataDAO;
 import co.gov.ideam.sshm.dataservices.dao.InstantdataDAO;
-import co.gov.ideam.sshm.dataservices.entidades.Dailydata;
 import co.gov.ideam.sshm.dataservices.entidades.Instantdata;
-import co.gov.ideam.sshm.web.dto.ConsultaResponseDTO;
+import co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.sshm.web.dto.ConsultaRestFormDTO;
 
 @Repository
@@ -21,23 +19,23 @@ import co.gov.ideam.sshm.web.dto.ConsultaRestFormDTO;
 public class InstantdataDAOImpl extends GenericDAOJPAImpl<Instantdata, Long> implements InstantdataDAO {
 
 	@Override
-	public List<ConsultaResponseDTO> consultarInformacionInstantanea(ConsultaRestFormDTO params) {
+	public List<ConsultaResponseRawDataDTO> consultarInformacionInstantanea(ConsultaRestFormDTO params) {
 		Query query = em.createNamedQuery("Instantdata.findByParameters");				
 		query.setParameter("pIdStation", params.getIdEstacion());
 		query.setParameter("pIdVariable", params.getIdVariable());
 		query.setParameter("pfechaIni", params.getFechaInicio());
 		query.setParameter("pfechafin", params.getFechaFin());
-		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();
+		return (List<ConsultaResponseRawDataDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();
 	}
 	
 	@Override
-	public List<ConsultaResponseDTO> consultarInformacionInstantaneaPrasdes(ConsultaRestFormDTO params) {
+	public List<ConsultaResponseRawDataDTO> consultarInformacionInstantaneaPrasdes(ConsultaRestFormDTO params) {
 		Query query = em.createNamedQuery("Instantdata.findByParametersPrasdes");				
 		query.setParameter("pIdStation", params.getIdEstacion());
 		query.setParameter("pIdVariable", params.getIdVariable());
 		query.setParameter("pfechaIni", params.getFechaInicio());
 		query.setParameter("pfechafin", params.getFechaFin());
-		return (List<ConsultaResponseDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();
+		return (List<ConsultaResponseRawDataDTO>)query.setMaxResults(limiteRegistrosInstananeos).getResultList();		
 	}
 
 	@Override

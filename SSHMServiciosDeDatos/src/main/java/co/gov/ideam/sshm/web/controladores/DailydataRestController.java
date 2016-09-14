@@ -47,7 +47,7 @@ public class DailydataRestController extends CommonController {
     		@RequestParam(value = "type", required = false) String type
     		){   
 		ConsultaRestFormDTO datosConsulta = new ConsultaRestFormDTO(idEstacion,idVariable,idCustomer,sfechaInicio, sfechaFin, idPeriod);
-    	logger.info("Respondiento peticion rest (get)...");    
+    	System.out.println("Respondiento peticion rest (get)...");    
     	
     	if("prasdes".equals(type)){
     		return dailydataServiceImpl.consultarDatosDiariosPorParametrosPrasdes(datosConsulta); 
@@ -59,7 +59,7 @@ public class DailydataRestController extends CommonController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosDiarios(@RequestBody String datosDiariosjson) {
-    	logger.info("Respondiento peticion rest (post)...");
+    	System.out.println("Respondiento peticion rest (post)...");
     	datosDiariosjson = cleanJsonIncorrectFormat(datosDiariosjson);    	
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosDiariosjson);		
 		Mapper dozerMapper = new DozerBeanMapper();    	

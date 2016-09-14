@@ -17,7 +17,6 @@ import co.gov.ideam.prasdes.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaRestFormDTO;
 
 @Repository
-@Transactional
 @Qualifier("instantdataDAOImpl")
 public class InstantdataDAOImpl extends GenericDAOJPAImpl<Instantdata, InstantdataPK>
 		implements InstantdataDAO {
@@ -38,8 +37,7 @@ public class InstantdataDAOImpl extends GenericDAOJPAImpl<Instantdata, Instantda
 	
 	@Override
 	public void persistirInfoInstantanea(List<Instantdata> entities) {		
-		BatchUpdateWithEmSession(entities);		
-		
+		BatchUpdateWithEmSession(entities);				
 	}
 
 }

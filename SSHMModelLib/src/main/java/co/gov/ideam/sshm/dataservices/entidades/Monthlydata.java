@@ -35,9 +35,10 @@ import javax.persistence.TemporalType;
 	@NamedQuery(name="Monthlydata.findByParametersPrasdes", 
 	query="SELECT NEW co.gov.ideam.sshm.web.dto.ConsultaResponseDTO(m.id.idstation, m.id.idvariable, m.id.datadate, m.id.idsource, m.data, m.idflag, m.idqc, m.user, m.date, m.idSec) "
 			+ "FROM Monthlydata m, PrasdesEquiv pe, PrasdesEquiv pv, PrasdesEquiv pq " 
+//			+ "FROM Monthlydata m, PrasdesEquiv pe "
 			+ "WHERE (m.id.idvariable = :pIdVariable or :pIdVariable is null) "
 			+ "AND m.id.idstation = cast(pe.id.ideamVal as long) "
-			+ "AND m.idqc = cast(pe.id.ideamVal as long) "
+			+ "AND m.idqc = cast(pq.id.ideamVal as long) "
 			+ "AND m.id.idvariable = pv.id.ideamVal "
 			+ "AND pe.id.tipoVal = 'station' "
 			+ "AND pv.id.tipoVal = 'variable' "

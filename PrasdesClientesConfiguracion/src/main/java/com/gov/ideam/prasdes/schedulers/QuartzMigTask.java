@@ -55,8 +55,7 @@ public class QuartzMigTask implements org.quartz.Job{
 	}
 
 	@Override
-	public void execute(JobExecutionContext context) throws JobExecutionException {
-		System.out.println("Ejecutando proceso automatico...");
+	public void execute(JobExecutionContext context) throws JobExecutionException {		
 		appConfigInfo = SpringContextBridge.getAppConfigInfoInstance();
 		restAdapterImpl = SpringContextBridge.getRestAdapterInstance();
 		MigTask migTask = (MigTask) context.getJobDetail().getJobDataMap().get("migTask");

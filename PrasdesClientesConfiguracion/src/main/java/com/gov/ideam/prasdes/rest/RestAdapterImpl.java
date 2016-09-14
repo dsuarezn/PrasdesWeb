@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.DependsOn;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.gov.ideam.prasdes.config.AppConfigInfo;
+import com.gov.ideam.prasdes.controllers.ScheduledMigTaskController;
 
 import co.gov.ideam.prasdes.dataservices.entidades.Country;
 import co.gov.ideam.prasdes.dataservices.entidades.Customerstationvar;
@@ -42,7 +45,7 @@ import co.gov.ideam.prasdes.web.dto.MigracionFormWebDTO;
 @DependsOn("appConfigInfo")
 public class RestAdapterImpl implements RestAdapter {
 
-	
+	static final Logger logger = LogManager.getLogger(RestAdapterImpl.class.getName());
 	
 	public RestAdapterImpl() {
 		super();
@@ -249,7 +252,7 @@ public class RestAdapterImpl implements RestAdapter {
 	public void migrarInformacionIdeamToPrasdes(String serviceUrl, Long idPeriod) {		
 		RestTemplate restTemplate = getRestTemplate();			
 		System.out.println("INICIA CONSULTA DE DATOS:"+Utilidades.formatearMarcaTiempo(new Date()));
-		co.gov.ideam.sshm.web.dto.ConsultaResponseDTO[] listaResponse = restTemplate.getForObject(Utilidades.getUri(serviceUrl), co.gov.ideam.sshm.web.dto.ConsultaResponseDTO[].class);
+		co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO[] listaResponse = restTemplate.getForObject(Utilidades.getUri(serviceUrl), co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO[].class);
 		System.out.println("TERMINO CONSULTA DE DATOS:"+Utilidades.formatearMarcaTiempo(new Date()));
 		Map<Long, Long>  equivIdEstIdeamPrasdes = getEquivPrasdesStations();
 		Map<String, Long> equivIdVarIdeamPrasdes = getEquivPrasdesVariables();
@@ -258,7 +261,7 @@ public class RestAdapterImpl implements RestAdapter {
 		Map<Long, Long> equivIdFlagIdeamPrasdes = getEquivPrasdesQuality();
 		List listaPrasdesVals=new ArrayList<>();	
 		System.out.println("INICIA CREACION OBJETOS:"+Utilidades.formatearMarcaTiempo(new Date()));
-		for (co.gov.ideam.sshm.web.dto.ConsultaResponseDTO item : listaResponse) {	
+		for (co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO item : listaResponse) {	
 			Long idstation=obtenerValorMapLong(equivIdEstIdeamPrasdes,item.getIdStation());
 			Long idvar=obtenerValorMapString(equivIdVarIdeamPrasdes,item.getIdVariable());
 			Long idsource=obtenerValorMapLong(equivIdSourceIdeamPrasdes,item.getIdSource());
@@ -266,7 +269,7 @@ public class RestAdapterImpl implements RestAdapter {
 			
 			if(idstation!=null && idvar!=null && idsource!=null && idflag!=null){
 				if(idPeriod.equals(appConfigInfo.periodIdDailyData) || idPeriod.equals(appConfigInfo.periodIdMonthlyData)){
-					ConsultaResponseDTO dto = obtenerResponsePrasdesFromIdeam(item, equivIdEstIdeamPrasdes, equivIdVarIdeamPrasdes, equivIdSourceIdeamPrasdes, equivIdQualityIdeamPrasdes);						
+					ConsultaResponseRawDataDTO dto = obtenerResponsePrasdesFromIdeam(item, equivIdEstIdeamPrasdes, equivIdVarIdeamPrasdes, equivIdSourceIdeamPrasdes, equivIdQualityIdeamPrasdes);						
 					listaPrasdesVals.add(dto);
 				}
 				if(idPeriod.equals(appConfigInfo.periodIdInstantData) || idPeriod.equals(appConfigInfo.periodIdRawData)){
@@ -305,8 +308,8 @@ public class RestAdapterImpl implements RestAdapter {
 		}
 	}
 	
-	private ConsultaResponseDTO obtenerResponsePrasdesFromIdeam(co.gov.ideam.sshm.web.dto.ConsultaResponseDTO item ,Map<Long, Long>  equivIdEstIdeamPrasdes, Map<String, Long> equivIdVarIdeamPrasdes, Map<Long, Long> equivIdSourceIdeamPrasdes, Map<Long, Long> equivIdQualityIdeamPrasdes){
-		ConsultaResponseDTO dto = new ConsultaResponseDTO();			
+	private ConsultaResponseRawDataDTO obtenerResponsePrasdesFromIdeam(co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO item ,Map<Long, Long>  equivIdEstIdeamPrasdes, Map<String, Long> equivIdVarIdeamPrasdes, Map<Long, Long> equivIdSourceIdeamPrasdes, Map<Long, Long> equivIdQualityIdeamPrasdes){
+		ConsultaResponseRawDataDTO dto = new ConsultaResponseRawDataDTO();			
 		dto.setnIdstation(equivIdEstIdeamPrasdes.get(item.getIdStation()));
 		dto.setnIdvar(equivIdVarIdeamPrasdes.get(item.getIdVariable()));
 		dto.setnIdsource(equivIdSourceIdeamPrasdes.get(item.getIdSource()));
@@ -318,7 +321,7 @@ public class RestAdapterImpl implements RestAdapter {
 		return dto;
 	}
 	
-	private ConsultaResponseRawDataDTO obtenerResponsePrasdesRawFromIdeam(co.gov.ideam.sshm.web.dto.ConsultaResponseDTO item ,Map<Long, Long>  equivIdEstIdeamPrasdes, Map<String, Long> equivIdVarIdeamPrasdes, Map<Long, Long> equivIdSourceIdeamPrasdes, Map<Long, Long> equivIdQualityIdeamPrasdes){
+	private ConsultaResponseRawDataDTO obtenerResponsePrasdesRawFromIdeam(co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO item ,Map<Long, Long>  equivIdEstIdeamPrasdes, Map<String, Long> equivIdVarIdeamPrasdes, Map<Long, Long> equivIdSourceIdeamPrasdes, Map<Long, Long> equivIdQualityIdeamPrasdes){
 		ConsultaResponseRawDataDTO dto = new ConsultaResponseRawDataDTO();			
 		dto.setnIdstation(equivIdEstIdeamPrasdes.get(item.getIdStation()));
 		dto.setnIdvar(equivIdVarIdeamPrasdes.get(item.getIdVariable()));

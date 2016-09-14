@@ -3,8 +3,8 @@ package com.gov.ideam.prasdes.schedulers;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
@@ -19,6 +19,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.retry.RetryCallback;
+import org.springframework.retry.RetryContext;
+import org.springframework.retry.backoff.FixedBackOffPolicy;
+import org.springframework.retry.policy.ExceptionClassifierRetryPolicy;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
 
 import com.gov.ideam.prasdes.rest.RestAdapterImpl;
@@ -30,9 +35,19 @@ import co.gov.ideam.prasdes.web.dto.MigTaskDTO;
 @Qualifier("quartzTaskSchedulerImpl")
 @DependsOn("restAdapterImpl")
 public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler, InitializingBean {
+	
+	static final Logger logger = LogManager.getLogger(QuartzTaskSchedulerImpl.class.getName());
 	 
 	@Autowired
 	private RestAdapterImpl restAdapterImpl;
+	
+	@Autowired
+	private FixedBackOffPolicy fixedBackOffPolicy;
+
+	@Autowired
+	private ExceptionClassifierRetryPolicy exceptionClassifierRetryPolicy;
+
+	
 
 	private Scheduler scheduler;
 	
@@ -55,12 +70,14 @@ public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler, Initializin
 		}				
 	}
 	//@PostConstruct	
-	public void initStoredTasks(){
+	public String initStoredTasks(){
 		System.out.println("Intento de recobrar procesos....");
 		List<MigTaskDTO> storedTasks = restAdapterImpl.getPrasdesTasks();
 		jobList = constructJobListFromMigTaskDTO(storedTasks);
 		scheduleJobList(jobList);
-		startJobs();
+		startJobs();	
+		System.out.println("Loaded and started processes....");
+		return "Loaded and started proceses....";
 	}
 		
 	public void startJobs(){
@@ -154,8 +171,38 @@ public class QuartzTaskSchedulerImpl implements QuartzTaskScheduler, Initializin
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		initScheduler();
-		initStoredTasks();
+		initScheduler();		
+		try {
+	    	methodToInvoke();
+		} catch (Exception e) {
+			System.out.println("Error loading stored tasks....");
+		}		
 	}
+	
+	public QuartzTaskSchedulerImpl getQuartzTaskSchedulerImpl(){
+		return this;
+	}
+	 
+	@SuppressWarnings("unchecked")
+	public void methodToInvoke() {		 
+        try {
+        	final RetryTemplate retryTemplate = new RetryTemplate();        	
+        	retryTemplate.setBackOffPolicy( fixedBackOffPolicy );
+        	retryTemplate.setRetryPolicy( exceptionClassifierRetryPolicy );         	
+            retryTemplate.execute(new RetryCallback() {            	                
+               @Override
+	            public String doWithRetry(RetryContext context) throws Throwable {	            	
+            	   System.out.println(String.format("\tRetry count ->  %s ",context.getRetryCount()));            	    
+            	    	return getQuartzTaskSchedulerImpl().initStoredTasks();
+	            }
+            });
+        } catch (Throwable e) {
+//            e.printStackTrace();
+        	
+            System.out.println("Error loading stored tasks....");
+        } 
+    }
+   
+	
 	
 }

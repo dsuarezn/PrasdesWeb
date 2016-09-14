@@ -21,7 +21,7 @@ public class PeriodRestController extends CommonController {
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<Period> consultarListPaises() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return periodServiceImpl.obtenerListaPeriodos();    	     
     }
 	

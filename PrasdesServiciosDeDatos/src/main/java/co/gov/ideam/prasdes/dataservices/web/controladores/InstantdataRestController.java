@@ -53,7 +53,7 @@ public class InstantdataRestController extends CommonController {
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosInstantaneos(@RequestBody String datosInstantaneosjson) {
     	System.out.println("ENTRO METODO POST:"+Utilidades.formatearMarcaTiempo(new Date()));
-    	logger.info("Respondiento peticion rest (post)...");
+    	System.out.println("Respondiento peticion rest (post)...");
     	datosInstantaneosjson = cleanJsonIncorrectFormat(datosInstantaneosjson);	 
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosInstantaneosjson);		
 		Mapper dozerMapper = new DozerBeanMapper();    	

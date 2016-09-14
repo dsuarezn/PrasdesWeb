@@ -12,7 +12,7 @@ import co.gov.ideam.prasdes.dataservices.services.DailydataService;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaRestFormDTO;
 
-@Transactional
+
 @Service
 @Qualifier("dailydataServiceImpl")
 public class DailydataServiceImpl extends ServiceCommons implements DailydataService {
@@ -23,7 +23,7 @@ public class DailydataServiceImpl extends ServiceCommons implements DailydataSer
 	public List<ConsultaResponseDTO> consultarInfoDiariaPorParametros(ConsultaRestFormDTO params) {
 		return daoFactory.getDailydataDAOImpl().consultarInfoDiariaPorParametros(params);
 	}
-	
+	@Transactional(timeout=200,readOnly=true)
 	@Override
 	public void actualizarInfoDiaria(List<Dailydata> datosDiarios) {
 		daoFactory.getDailydataDAOImpl().persistirInfoDiaria(datosDiarios);		

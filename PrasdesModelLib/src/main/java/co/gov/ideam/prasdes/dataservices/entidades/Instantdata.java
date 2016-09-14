@@ -108,4 +108,11 @@ public class Instantdata implements Serializable {
 		this.nIduser = nIduser;
 	}
 
+	@Override
+	public String toString() {
+		return "Instantdata [id=" + id + ", dDateadd=" + dDateadd + ", nData=" + nData + ", nIdflag=" + nIdflag
+				+ ", nIdqc=" + nIdqc + ", nIduser=" + nIduser + "]";
+	}
+	
+
 }

@@ -30,14 +30,14 @@ static final Logger logger = LogManager.getLogger(CustomerStationVarRestControll
 	@CrossOrigin
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody List<CustomerStationVarDTO> consultarStationVar() {     	
-    	logger.info("Respondiento peticion rest (get)...");
+    	System.out.println("Respondiento peticion rest (get)...");
     	return customerStationVarServiceImpl.obtenerListadoCustomerStVar();   	     
     }
 	
 	@CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")    
     public @ResponseBody Customerstationvar actualizarStationVar(@RequestBody String jsonStationvar) {
-    	logger.info("Respondiento peticion rest (post)...");	    	
+    	System.out.println("Respondiento peticion rest (post)...");	    	
     	ObjectMapper mapper = new ObjectMapper();    	 
     	CustomerStationVarDTO cstationvar = null;
 		try {
@@ -59,7 +59,7 @@ static final Logger logger = LogManager.getLogger(CustomerStationVarRestControll
 	@CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")    
     public void eliminarStationVar(@RequestBody String jsonStationvar) {
-    	logger.info("Respondiento peticion rest (post)...");	    	
+    	System.out.println("Respondiento peticion rest (post)...");	    	
     	ObjectMapper mapper = new ObjectMapper();    	 
     	CustomerStationVarDTO cstationvar = null;
 		try {

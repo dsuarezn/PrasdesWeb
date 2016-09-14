@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import co.gov.ideam.sshm.dataservices.entidades.Instantdata;
 import co.gov.ideam.sshm.web.dto.ConsultaResponseDTO;
+import co.gov.ideam.sshm.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.sshm.web.dto.ConsultaRestFormDTO;
 
 @RestController
@@ -34,7 +35,7 @@ public class InstantdataRestController extends CommonController {
 	@CrossOrigin
     @RequestMapping(value = "",
     		method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody List<ConsultaResponseDTO> consultarDatosInstantaneos(
+    public @ResponseBody List<ConsultaResponseRawDataDTO> consultarDatosInstantaneos(
     		@RequestParam(value = "c", required = false) String idCustomer,
     		@RequestParam(value = "e", required = false) Long idEstacion,
     		@RequestParam(value = "v", required = false) String idVariable,
@@ -46,7 +47,8 @@ public class InstantdataRestController extends CommonController {
 		ConsultaRestFormDTO datosConsulta = new ConsultaRestFormDTO(idEstacion,idVariable,idCustomer,sfechaInicio, sfechaFin, idPeriod);
     	
 		if("prasdes".equals(type)){
-    		return instantdataServiceImpl.consultarDatosInstantaneosPorParametrosPrasdes(datosConsulta); 
+			return instantdataServiceImpl.consultarDatosInstantaneosPorParametrosPrasdes(datosConsulta);
+			
     	}
 		
     	return instantdataServiceImpl.consultarDatosInstantaneosPorParametros(datosConsulta);
@@ -55,7 +57,7 @@ public class InstantdataRestController extends CommonController {
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosInstantaneos(@RequestBody String datosInstantaneosjson) {
-    	logger.info("Respondiento peticion rest (post)...");
+    	System.out.println("Respondiento peticion rest (post)...");
     	datosInstantaneosjson = cleanJsonIncorrectFormat(datosInstantaneosjson);    	  	
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosInstantaneosjson);				
 		Mapper dozerMapper = new DozerBeanMapper();    	

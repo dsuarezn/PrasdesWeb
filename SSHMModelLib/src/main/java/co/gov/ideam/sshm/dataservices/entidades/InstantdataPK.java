@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+
 /**
  * The primary key class for the GRDMVD_DAILYDATA database table.
  * 
@@ -20,7 +21,7 @@ public class InstantdataPK implements Serializable {
 	@Column(name="INDT_IDVARIABLE")
 	private String idvariable;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)	
 	@Column(name="INDT_DATADATE")
 	private Date datadate;
 

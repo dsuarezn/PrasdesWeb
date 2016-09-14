@@ -11,7 +11,7 @@ import co.gov.ideam.prasdes.dataservices.services.RawdataService;
 import co.gov.ideam.prasdes.web.dto.ConsultaResponseRawDataDTO;
 import co.gov.ideam.prasdes.web.dto.ConsultaRestFormDTO;
 
-@Transactional
+
 @Service
 @Qualifier("rawdataServiceImpl")
 public class RawdataServiceImpl extends ServiceCommons implements RawdataService {
@@ -21,6 +21,7 @@ public class RawdataServiceImpl extends ServiceCommons implements RawdataService
 		return daoFactory.getRawdataDAOImpl().consultarInfoCrudaPorParametros(params);
 	}
 
+	@Transactional(timeout=200,readOnly=true)
 	@Override
 	public void actualizarInfoCrudos(List<Rawdata> datosCrudos) {
 		daoFactory.getRawdataDAOImpl().persistirInfoCruda(datosCrudos);

@@ -44,14 +44,14 @@ public class DailydataRestController extends CommonController {
     		@RequestParam(value = "p", required = false) Long idPeriod
     	){ 				
 		ConsultaRestFormDTO datosConsulta = new ConsultaRestFormDTO(idEstacion,idVariable,idCustomer,sfechaInicio, sfechaFin, idPeriod);
-    	logger.info("Respondiento peticion rest (get)...");    	
+    	System.out.println("Respondiento peticion rest (get)...");    	
     	return dailydataServiceImpl.consultarInfoDiariaPorParametros(datosConsulta);    	     
     }
           
     @CrossOrigin
     @RequestMapping(value = "", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)    
     public void actualizarDatosDiarios(@RequestBody String datosDiariosjson) {
-    	logger.info("Respondiento peticion rest (post)...");
+    	System.out.println("Respondiento peticion rest (post)...");
     	datosDiariosjson = cleanJsonIncorrectFormat(datosDiariosjson);
     	ObjectMapper mapper = new ObjectMapper();    	 
 		List<ConsultaResponseDTO> listaConsultaResponse = listFromJSON(new TypeReference<List<ConsultaResponseDTO>>() {}, datosDiariosjson);		
